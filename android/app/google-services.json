@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "668365067765",
+    "project_id": "authplan-1ebf8",
+    "storage_bucket": "authplan-1ebf8.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:668365067765:android:71484d4cc39352e0e4fcbc",
+        "android_client_info": {
+          "package_name": "com.example.plan_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "668365067765-vl8giubccebjtai9ti8bekg5a55b9l72.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA6wAYHJdNafI9qyKRRdSknz-l3Dg9TXmI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "668365067765-vl8giubccebjtai9ti8bekg5a55b9l72.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "668365067765-d2j1miggdk10rgaqna2jv1aifes2o782.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.planApp"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
