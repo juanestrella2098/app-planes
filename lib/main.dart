@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:plan_app/pages/auth_page.dart';
+import 'package:plan_app/pages/login_or_register_pages/auth_page.dart';
+import 'package:plan_app/providers/filtro_providers.dart';
+import 'package:plan_app/providers/user_provider.dart';
+import 'package:provider/provider.dart';
 import 'firebase_options.dart';
 
 void main() async {
@@ -14,9 +17,15 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: AuthPage(),
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => FiltroProviders()),
+        ChangeNotifierProvider(create: (_) => UserProvider())
+      ],
+      child: const MaterialApp(
+        debugShowCheckedModeBanner: false,
+        home: AuthPage(),
+      ),
     );
   }
 }

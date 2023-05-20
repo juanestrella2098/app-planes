@@ -2,10 +2,10 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
-import '../components/my_button.dart';
-import '../components/my_textfield.dart';
-import '../components/square_tile.dart';
-import '../services/auth_services.dart';
+import '../../components/my_button.dart';
+import '../../components/my_textfield.dart';
+import '../../components/square_tile.dart';
+import '../../services/auth_services.dart';
 
 class LoginPage extends StatefulWidget {
   final Function()? onTap;
@@ -92,6 +92,7 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                     //textfield email
                     MyTextField(
+                      textInputType: TextInputType.text,
                       controller: emailController,
                       hintText: 'Email',
                       obscureText: false,
@@ -101,6 +102,7 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                     //textfield contraseña
                     MyTextField(
+                      textInputType: TextInputType.text,
                       controller: passwordController,
                       hintText: 'Contraseña',
                       obscureText: true,
