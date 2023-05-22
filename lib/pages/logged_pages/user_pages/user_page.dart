@@ -1,17 +1,13 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:plan_app/components/my_button.dart';
 import 'package:plan_app/components/my_button_profile.dart';
+import 'package:plan_app/pages/logged_pages/user_pages/plans_realized.dart';
 import 'package:plan_app/pages/logged_pages/user_pages/show_user.dart';
 import 'package:plan_app/pages/logged_pages/user_pages/update_user.dart';
-import 'package:plan_app/pages/login_or_register_pages/register_page.dart';
 import 'package:plan_app/providers/user_provider.dart';
-import 'package:plan_app/services/plan_services.dart';
-import 'package:plan_app/services/user_service.dart';
 import 'package:provider/provider.dart';
 
-import '../../favs_pages/details_page.dart';
 import 'createUser.dart';
 
 class UserPage extends StatelessWidget {
@@ -57,15 +53,11 @@ class UserPage extends StatelessWidget {
             MyButtonProfile(
               text: 'Ver planes realizados',
               onTap: () async {
-                PlanService planService = PlanService();
-                planService.getPlans();
-                //await userProvider.usuarioRegistrado(user.uid)
-                //    ? print('Registrado')
-                //    : //lanzar la pantalla de los planes realizados
-                //    Navigator.push(
-                //        context,
-                //        MaterialPageRoute(
-                //            builder: (context) => CreateUserPage()));
+                await userProvider.getPlanesRealizados();
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => PlansRealizedPage()));
               },
             ),
             SizedBox(

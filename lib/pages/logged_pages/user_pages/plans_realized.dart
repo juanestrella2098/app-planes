@@ -1,15 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:plan_app/pages/favs_pages/details_fav_page.dart';
+import 'package:plan_app/pages/logged_pages/user_pages/plans_realized_details.dart';
 import 'package:plan_app/providers/user_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:stacked_card_carousel/stacked_card_carousel.dart';
 
-class FavsPage extends StatelessWidget {
+class PlansRealizedPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final userProvider = Provider.of<UserProvider>(context);
-    userProvider.getPlanesFavs();
-
     final List<Widget> fancyCards = <Widget>[
       Container(
         width: 300,
@@ -18,14 +16,14 @@ class FavsPage extends StatelessWidget {
             color: Colors.grey, borderRadius: BorderRadius.circular(30)),
         child: Center(
             child: Text(
-          (userProvider.planesFavs.isEmpty)
-              ? 'Tus planes favoritos aparecerán aqui'
-              : 'Tienes ${userProvider.planesFavs.length} plan/es guardado/s',
+          (userProvider.planesRealizados.isEmpty)
+              ? 'No se han encontrado planes :('
+              : 'Se han encontrado ${userProvider.planesRealizados.length} plan/es',
           style: TextStyle(color: Colors.white),
         )),
       )
     ];
-    userProvider.planesFavs.asMap().forEach((index, plan) {
+    userProvider.planesRealizados.asMap().forEach((index, plan) {
       fancyCards.add(MyCard(
         image: 'lib/images/penia_martos.jpg',
         boxDecoration: BoxDecoration(),
@@ -109,21 +107,21 @@ class MyCard extends StatelessWidget {
                   height: 20,
                 ),
                 Text(
-                  userProvider.planesFavs[posicion].nombre,
+                  userProvider.planesRealizados[posicion].nombre,
                   style: TextStyle(color: Colors.white, fontSize: 20),
                 ),
                 const SizedBox(
                   height: 10,
                 ),
                 Text(
-                  '${userProvider.planesFavs[posicion].cAutonoma}, ${userProvider.planesFavs[posicion].provincia}',
+                  '${userProvider.planesRealizados[posicion].cAutonoma}, ${userProvider.planesRealizados[posicion].provincia}',
                   style: TextStyle(color: Colors.white),
                 ),
                 const SizedBox(
                   height: 10,
                 ),
                 Text(
-                  '${userProvider.planesFavs[posicion].tipoPlan}',
+                  '${userProvider.planesRealizados[posicion].tipoPlan}',
                   style: TextStyle(color: Colors.white),
                 ),
                 const SizedBox(
@@ -133,8 +131,9 @@ class MyCard extends StatelessWidget {
                   onTap: () => Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => DetailFavPage(
-                                planmodel: userProvider.planesFavs[posicion],
+                          builder: (context) => PlanRealizedDetailPage(
+                                planmodel:
+                                    userProvider.planesRealizados[posicion],
                               ))),
                   child: Container(
                     decoration: BoxDecoration(

@@ -1,4 +1,6 @@
 import 'package:flutter/cupertino.dart';
+import 'package:plan_app/providers/user_provider.dart';
+import 'package:provider/provider.dart';
 
 import '../models/plan_model.dart';
 import '../services/plan_services.dart';
@@ -83,13 +85,18 @@ class FiltroProviders extends ChangeNotifier {
     return planService.getPlans();
   }
 
-  Future<List<PlanModel>> traePlanes() async {
+  Future<List<PlanModel>> traePlanes(BuildContext context) async {
+    final List<String> viajesRealizados =
+        Provider.of<UserProvider>(context, listen: false).user.viajesRealizados;
     if (planes.isEmpty) {
       planes = await getPlanes();
       planesAux = [...planes];
     } else {
       planesAux = [...planes];
     }
+
+    //quitar los resultados de los viajes que se hayan realizado
+    planesAux.removeWhere((plan) => viajesRealizados.contains(plan.id));
 
     if (comunidadSeleccionada != '-') {
       planesAux = planesAux
@@ -122,5 +129,10 @@ class FiltroProviders extends ChangeNotifier {
     }
     notifyListeners();
     return planesAux;
+  }
+
+  borraPlanes(String id) {
+    planesAux.removeWhere((element) => element.id == id);
+    notifyListeners();
   }
 }

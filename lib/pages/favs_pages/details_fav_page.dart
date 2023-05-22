@@ -126,7 +126,12 @@ class DetailFavPage extends StatelessWidget {
                     Expanded(
                       child: Center(
                         child: GestureDetector(
-                          onTap: () => print('Añadiendo plan a realizados'),
+                          onTap: () {
+                            userProvider.borraPlanFavs(planmodel.id);
+                            userProvider.agregaViajeFav(planmodel.id);
+                            userProvider.agregaPlanARealizado(planmodel.id);
+                            Navigator.pop(context);
+                          },
                           child: Container(
                             width: 100,
                             height: 50,

@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
+import 'package:plan_app/components/my_fluttertoast.dart';
+import 'package:plan_app/pages/login_or_register_pages/reset_password.dart';
 
 import '../../components/my_button.dart';
 import '../../components/my_textfield.dart';
@@ -45,14 +46,7 @@ class _LoginPageState extends State<LoginPage> {
         emailController.text = '';
         passwordController.text = '';
         FocusScope.of(context).unfocus();
-        Fluttertoast.showToast(
-            msg: "Email o Contraseña incorrecta",
-            toastLength: Toast.LENGTH_SHORT,
-            gravity: ToastGravity.BOTTOM,
-            timeInSecForIosWeb: 1,
-            backgroundColor: Colors.red,
-            textColor: Colors.white,
-            fontSize: 16.0);
+        myCustomFlutterToast("Email o Contraseña incorrecta", Colors.red);
         // show error to user
       }
     }
@@ -116,9 +110,17 @@ class _LoginPageState extends State<LoginPage> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
-                          Text(
-                            '¿Olvidaste la contraseña?',
-                            style: TextStyle(color: Colors.grey[600]),
+                          GestureDetector(
+                            onTap: (() {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => ResetPage()));
+                            }),
+                            child: Text(
+                              '¿Olvidaste la contraseña?',
+                              style: TextStyle(color: Colors.grey[600]),
+                            ),
                           ),
                         ],
                       ),

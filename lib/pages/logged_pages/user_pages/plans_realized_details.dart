@@ -1,21 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:plan_app/models/plan_model.dart';
-import 'package:plan_app/pages/favs_pages/favs_page.dart';
-import 'package:plan_app/providers/user_provider.dart';
 import 'package:provider/provider.dart';
 
-import '../../providers/filtro_providers.dart';
+import '../../../providers/user_provider.dart';
 
-class DetailPlansSearchedPage extends StatelessWidget {
+class PlanRealizedDetailPage extends StatelessWidget {
   final PlanModel planmodel;
 
-  DetailPlansSearchedPage({super.key, required this.planmodel});
+  const PlanRealizedDetailPage({super.key, required this.planmodel});
 
   @override
   Widget build(BuildContext context) {
     final userProvider = Provider.of<UserProvider>(context);
-    final filtroProviders = Provider.of<FiltroProviders>(context);
-
     return Scaffold(
       body: Stack(
         children: [
@@ -85,21 +82,6 @@ class DetailPlansSearchedPage extends StatelessWidget {
                                   color: Colors.grey[700]),
                             ),
                           ),
-                          GestureDetector(
-                            child: Icon(
-                              Icons.favorite_border_sharp,
-                              size: 30,
-                              color: (userProvider.estaEnFav(planmodel.id)
-                                  ? Colors.red
-                                  : null),
-                            ),
-                            onTap: () {
-                              userProvider.agregaViajeFav(planmodel.id);
-                              userProvider.estaEnFav(planmodel.id);
-
-                              print('actualizando');
-                            },
-                          )
                         ],
                       ),
                     ),
@@ -132,14 +114,48 @@ class DetailPlansSearchedPage extends StatelessWidget {
                     Expanded(
                       child: Center(
                         child: GestureDetector(
-                          onTap: () {
-                            filtroProviders.borraPlanes(planmodel.id);
-                            userProvider.agregaPlanARealizado(planmodel.id);
-                            Navigator.pop(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => FavsPage()));
-                          },
+                          onTap: () => showDialog(
+                              context: context,
+                              builder: (BuildContext context) => AlertDialog(
+                                    title: Text('Como estuvo la experiencia'),
+                                    content: RatingBar(
+                                        glowColor: Colors.yellow[700],
+                                        tapOnlyMode: true,
+                                        initialRating: 0,
+                                        direction: Axis.horizontal,
+                                        allowHalfRating: false,
+                                        itemCount: 5,
+                                        ratingWidget: RatingWidget(
+                                            full: Icon(Icons.star,
+                                                color: Colors.yellow[700]),
+                                            half: Icon(
+                                              Icons.star_half,
+                                              color: Colors.yellow[700],
+                                            ),
+                                            empty: Icon(
+                                              Icons.star_outline,
+                                              color: Colors.yellow[700],
+                                            )),
+                                        onRatingUpdate: (value) {
+                                          userProvider
+                                              .actualizaRating(value.toInt());
+                                        }),
+                                    actions: [
+                                      TextButton(
+                                          onPressed: () {
+                                            userProvider
+                                                .actualizaRatingUserPlan(
+                                                    planmodel.id,
+                                                    userProvider.votacion);
+                                          },
+                                          child: Text('Votar')),
+                                      TextButton(
+                                          onPressed: () {
+                                            Navigator.pop(context);
+                                          },
+                                          child: Text('Cancelar'))
+                                    ],
+                                  )),
                           child: Container(
                             width: 100,
                             height: 50,
@@ -148,7 +164,7 @@ class DetailPlansSearchedPage extends StatelessWidget {
                                 borderRadius: BorderRadius.circular(30)),
                             child: Center(
                               child: Text(
-                                'Realizar',
+                                'Votar',
                                 style: TextStyle(color: Colors.white),
                               ),
                             ),

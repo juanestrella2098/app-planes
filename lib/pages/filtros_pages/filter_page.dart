@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:plan_app/components/my_button.dart';
 import 'package:plan_app/pages/filtros_pages/plans_searched.dart';
 import 'package:plan_app/providers/filtro_providers.dart';
+import 'package:plan_app/services/plan_services.dart';
 import 'package:plan_app/utils/utils.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
@@ -52,7 +53,7 @@ class FilterPage extends StatelessWidget {
                 child: Center(
                   child: GestureDetector(
                     onTap: () {
-                      print(filtroProvider.tipoPlan);
+                      print('juas');
                     },
                     child: Text(
                       'Comunidad y Provincia',
@@ -516,7 +517,7 @@ class FilterPage extends StatelessWidget {
             onTap: () async {
               await userProvider.usuarioRegistrado(user.uid)
                   ? {
-                      await filtroProvider.traePlanes(),
+                      await filtroProvider.traePlanes(context),
                       Navigator.push(
                           context,
                           MaterialPageRoute(

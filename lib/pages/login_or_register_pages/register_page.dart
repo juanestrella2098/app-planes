@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 import '../../components/my_button.dart';
+import '../../components/my_fluttertoast.dart';
 import '../../components/my_textfield.dart';
 import '../../components/square_tile.dart';
 import '../../services/auth_services.dart';
@@ -38,6 +39,15 @@ class _RegisterPageState extends State<RegisterPage> {
 
     //try sign up
     try {
+      if (passwordController.text.length < 6 ||
+          confirmPasswordController.text.length < 6) {
+        emailController.text = '';
+        passwordController.text = '';
+        confirmPasswordController.text = '';
+        FocusScope.of(context).unfocus();
+        myCustomFlutterToast(
+            "Las contraseñas tienen que tener mas de 6 caracteres", Colors.red);
+      } else
       //check if password and confirm password are the same
       if (passwordController.text == confirmPasswordController.text) {
         await FirebaseAuth.instance.createUserWithEmailAndPassword(
@@ -48,14 +58,7 @@ class _RegisterPageState extends State<RegisterPage> {
         passwordController.text = '';
         confirmPasswordController.text = '';
         FocusScope.of(context).unfocus();
-        Fluttertoast.showToast(
-            msg: "Las contraseñas no coinciden",
-            toastLength: Toast.LENGTH_SHORT,
-            gravity: ToastGravity.BOTTOM,
-            timeInSecForIosWeb: 1,
-            backgroundColor: Colors.red,
-            textColor: Colors.white,
-            fontSize: 16.0);
+        myCustomFlutterToast("Las contraseñas no coinciden", Colors.red);
       }
     } on FirebaseAuthException catch (e) {
       //Wrong email
@@ -63,14 +66,7 @@ class _RegisterPageState extends State<RegisterPage> {
         emailController.text = '';
         passwordController.text = '';
         FocusScope.of(context).unfocus();
-        Fluttertoast.showToast(
-            msg: "Email o Contraseña incorrecta",
-            toastLength: Toast.LENGTH_SHORT,
-            gravity: ToastGravity.BOTTOM,
-            timeInSecForIosWeb: 1,
-            backgroundColor: Colors.red,
-            textColor: Colors.white,
-            fontSize: 16.0);
+        myCustomFlutterToast("Email o Contraseña incorrecta", Colors.red);
         // show error to user
       }
     }

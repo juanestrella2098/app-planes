@@ -9,6 +9,8 @@ class UserProvider extends ChangeNotifier {
   PlanService planService = PlanService();
   UserService userService = UserService();
   List<PlanModel> planesFavs = [];
+  List<PlanModel> planesRealizados = [];
+  int votacion = 0;
   PlanModel plan = PlanModel(
       id: '',
       nombre: '',
@@ -20,7 +22,8 @@ class UserProvider extends ChangeNotifier {
       rating: 0,
       costePlan: 0,
       createdAt: '',
-      updatedAt: '');
+      updatedAt: '',
+      contador: 0);
   bool registrado = false;
 
   UserModel user = UserModel(
@@ -31,6 +34,11 @@ class UserProvider extends ChangeNotifier {
       edad: 0,
       viajesFavoritos: [],
       viajesRealizados: []);
+
+  actualizaRating(int _) {
+    votacion = _;
+    notifyListeners();
+  }
 
   Future<bool> usuarioRegistrado(String idFirebase) async {
     UserModel usuario = await userService.getUsuario(idFirebase);
@@ -100,6 +108,34 @@ class UserProvider extends ChangeNotifier {
     return planesFavs;
   }
 
+  agregaPlanARealizado(String id) {
+    user.viajesRealizados.add(id);
+    user.viajesFavoritos.removeWhere((idFav) => idFav == id);
+    planesFavs.removeWhere((plan) => plan.id == id);
+    userService.putUsuario(user);
+    planService.getPlanUpdateItAndPlusOne(id);
+    notifyListeners();
+  }
+
+  Future<List<PlanModel>> getPlanesRealizados() async {
+    planesRealizados = await getPlanes();
+    planesRealizados = planesRealizados
+        .where((plan) => user.viajesRealizados.contains(plan.id))
+        .toList();
+    notifyListeners();
+    return planesRealizados;
+  }
+
+  borraPlanFavs(String id) {
+    planesFavs.removeWhere((element) => element.id == id);
+    notifyListeners();
+  }
+
+  actualizaRatingUserPlan(String id, int rate) {
+    planService.getPlanAndUpdateRating(id, rate);
+    notifyListeners();
+  }
+
   void reseteaProvider() {
     user = UserModel(
         idFirebase: '',
@@ -108,8 +144,10 @@ class UserProvider extends ChangeNotifier {
         edad: 0,
         viajesFavoritos: [],
         viajesRealizados: []);
+    votacion = 0;
     registrado = false;
     planesFavs = [];
+    planesRealizados = [];
     notifyListeners();
   }
 }
