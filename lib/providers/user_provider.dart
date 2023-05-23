@@ -135,7 +135,7 @@ class UserProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  void reseteaProvider() {
+  reseteaProvider() async {
     user = UserModel(
         idFirebase: '',
         nombre: '',
@@ -147,6 +147,10 @@ class UserProvider extends ChangeNotifier {
     registrado = false;
     planesFavs = [];
     planesRealizados = [];
-    notifyListeners();
+    await Future<void>.microtask(
+      () {
+        notifyListeners();
+      },
+    );
   }
 }

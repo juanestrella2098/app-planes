@@ -2,10 +2,12 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:plan_app/components/my_fluttertoast.dart';
 import 'package:plan_app/pages/login_or_register_pages/reset_password.dart';
+import 'package:provider/provider.dart';
 
 import '../../components/my_button.dart';
 import '../../components/my_textfield.dart';
 import '../../components/square_tile.dart';
+import '../../providers/user_provider.dart';
 import '../../services/auth_services.dart';
 
 class LoginPage extends StatefulWidget {
@@ -54,6 +56,7 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
+    print('A');
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(

@@ -14,10 +14,14 @@ import 'createUser.dart';
 class UserPage extends StatelessWidget {
   final user = FirebaseAuth.instance.currentUser!;
   void signUserOut() {
-    FirebaseAuth.instance.signOut();
-    GoogleSignIn()
-        .disconnect()
-        .then((value) => FirebaseAuth.instance.signOut());
+    if (FirebaseAuth.instance.currentUser!.providerData[0].providerId ==
+        "google.com") {
+      GoogleSignIn()
+          .disconnect()
+          .then((value) => FirebaseAuth.instance.signOut());
+    } else {
+      FirebaseAuth.instance.signOut();
+    }
   }
 
   void deleteUser() {
@@ -94,9 +98,39 @@ class UserPage extends StatelessWidget {
               height: 25,
             ),
             MyButtonProfile(
-                backgroundColor: Colors.grey[700]!,
-                text: 'Cerrar Sesión',
-                onTap: () => {userProvider.reseteaProvider(), signUserOut()}),
+              backgroundColor: Colors.grey[700]!,
+              text: 'Cerrar Sesión',
+              onTap: () => showDialog(
+                  context: context,
+                  builder: (BuildContext context) => AlertDialog(
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(30)),
+                        title: Text('¿Quieres cerrar sesión?'),
+                        content: Text('Vas a cerrar sesión'),
+                        actions: [
+                          TextButton(
+                              onPressed: () {
+                                Navigator.pop(context);
+                              },
+                              child: ButtonAcceptCancel(
+                                texto: "Cancelar",
+                                backgroundColor: Colors.grey,
+                                fontColor: Colors.black,
+                              )),
+                          TextButton(
+                              onPressed: () async {
+                                await userProvider.reseteaProvider();
+                                await Future.delayed(Duration(seconds: 1));
+                                signUserOut();
+                                Navigator.pop(context);
+                              },
+                              child: ButtonAcceptCancel(
+                                  texto: 'Cerrar sesión',
+                                  backgroundColor: Colors.grey[700]!,
+                                  fontColor: Colors.white))
+                        ],
+                      )),
+            ),
             SizedBox(
               height: 25,
             ),
@@ -123,6 +157,7 @@ class UserPage extends StatelessWidget {
                           TextButton(
                               onPressed: () {
                                 userProvider.eliminaUsuario(user.uid);
+                                userProvider.reseteaProvider();
                                 deleteUser();
                                 Navigator.pop(context);
                               },
