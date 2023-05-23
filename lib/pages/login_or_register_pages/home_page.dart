@@ -108,6 +108,9 @@ class _HomePageState extends State<HomePage> {
           await userProvider.usuarioRegistrado(user.uid);
           flag = true;
         }
+        if (selectedPos == 0) {
+          await userProvider.getPlanesFavs();
+        }
         setState(() {
           filtroProvider.reseteProvider();
           _selectedIndex = selectedPos ?? 0;

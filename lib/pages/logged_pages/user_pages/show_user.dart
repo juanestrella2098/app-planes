@@ -23,9 +23,13 @@ class ShowUserPage extends StatelessWidget {
                 height: 25,
               ),
               //logo
-              Icon(
-                Icons.verified_user,
-                size: 75,
+              CircleAvatar(
+                radius: 50,
+                backgroundColor: Colors.grey[700],
+                child: Text(
+                  userProvider.user.nombre[0],
+                  style: TextStyle(fontSize: 30, color: Colors.white),
+                ),
               ),
               SizedBox(
                 height: 25,

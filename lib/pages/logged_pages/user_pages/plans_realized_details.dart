@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:plan_app/components/my_button_accept_cancel.dart';
+import 'package:plan_app/components/my_fluttertoast.dart';
 import 'package:plan_app/models/plan_model.dart';
 import 'package:provider/provider.dart';
 
@@ -82,6 +84,11 @@ class PlanRealizedDetailPage extends StatelessWidget {
                                   color: Colors.grey[700]),
                             ),
                           ),
+                          Icon(
+                            Icons.star_outlined,
+                            color: Colors.yellow,
+                          ),
+                          Text(planmodel.rating.toString())
                         ],
                       ),
                     ),
@@ -117,6 +124,9 @@ class PlanRealizedDetailPage extends StatelessWidget {
                           onTap: () => showDialog(
                               context: context,
                               builder: (BuildContext context) => AlertDialog(
+                                    shape: RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(30)),
                                     title: Text('Como estuvo la experiencia'),
                                     content: RatingBar(
                                         glowColor: Colors.yellow[700],
@@ -143,17 +153,29 @@ class PlanRealizedDetailPage extends StatelessWidget {
                                     actions: [
                                       TextButton(
                                           onPressed: () {
+                                            Navigator.pop(context);
+                                          },
+                                          child: ButtonAcceptCancel(
+                                            texto: "Cancelar",
+                                            backgroundColor: Colors.grey,
+                                            fontColor: Colors.black,
+                                          )),
+                                      TextButton(
+                                          onPressed: () {
                                             userProvider
                                                 .actualizaRatingUserPlan(
                                                     planmodel.id,
                                                     userProvider.votacion);
-                                          },
-                                          child: Text('Votar')),
-                                      TextButton(
-                                          onPressed: () {
+                                            myCustomFlutterToast(
+                                                "Se envío la votación, ¡gracias!",
+                                                Colors.green);
                                             Navigator.pop(context);
                                           },
-                                          child: Text('Cancelar'))
+                                          child: ButtonAcceptCancel(
+                                              texto: 'Votar',
+                                              backgroundColor:
+                                                  Colors.grey[700]!,
+                                              fontColor: Colors.white))
                                     ],
                                   )),
                           child: Container(

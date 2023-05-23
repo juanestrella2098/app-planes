@@ -48,6 +48,7 @@ dependencies:
   stacked_card_carousel: ^0.0.4
   google_fonts: ^4.0.4
   flutter_svg: ^1.1.6
+  calendar_date_picker2: ^0.5.2
 
 
 dev_dependencies:

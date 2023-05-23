@@ -8,6 +8,7 @@ import 'package:plan_app/pages/logged_pages/user_pages/update_user.dart';
 import 'package:plan_app/providers/user_provider.dart';
 import 'package:provider/provider.dart';
 
+import '../../../components/my_button_accept_cancel.dart';
 import 'createUser.dart';
 
 class UserPage extends StatelessWidget {
@@ -35,22 +36,11 @@ class UserPage extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            ClipOval(
-                child: (user.photoURL != null)
-                    ? Image.network(
-                        user.photoURL!,
-                        width: 100,
-                        height: 100,
-                      )
-                    : Image.asset(
-                        'lib/images/google.png',
-                        width: 100,
-                        height: 100,
-                      )),
             SizedBox(
               height: 25,
             ),
             MyButtonProfile(
+              backgroundColor: Colors.grey[700]!,
               text: 'Ver planes realizados',
               onTap: () async {
                 await userProvider.getPlanesRealizados();
@@ -64,6 +54,7 @@ class UserPage extends StatelessWidget {
               height: 25,
             ),
             MyButtonProfile(
+              backgroundColor: Colors.grey[700]!,
               text: 'Ver perfil',
               onTap: () async {
                 await userProvider.usuarioRegistrado(user.uid)
@@ -83,6 +74,7 @@ class UserPage extends StatelessWidget {
               height: 25,
             ),
             MyButtonProfile(
+              backgroundColor: Colors.grey[700]!,
               text: 'Actualizar perfil',
               onTap: () async {
                 await userProvider.usuarioRegistrado(user.uid)
@@ -102,19 +94,75 @@ class UserPage extends StatelessWidget {
               height: 25,
             ),
             MyButtonProfile(
+                backgroundColor: Colors.grey[700]!,
                 text: 'Cerrar Sesión',
                 onTap: () => {userProvider.reseteaProvider(), signUserOut()}),
             SizedBox(
               height: 25,
             ),
             MyButtonProfile(
+              backgroundColor: Colors.red[700]!,
               text: 'Eliminar perfil',
-              onTap: () =>
-                  {userProvider.eliminaUsuario(user.uid), deleteUser()},
+              onTap: () => showDialog(
+                  context: context,
+                  builder: (BuildContext context) => AlertDialog(
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(30)),
+                        title: Text('¿Borrar tu cuenta?'),
+                        content: Text('Vas a borrar la cuenta'),
+                        actions: [
+                          TextButton(
+                              onPressed: () {
+                                Navigator.pop(context);
+                              },
+                              child: ButtonAcceptCancel(
+                                texto: "Cancelar",
+                                backgroundColor: Colors.grey,
+                                fontColor: Colors.black,
+                              )),
+                          TextButton(
+                              onPressed: () {
+                                userProvider.eliminaUsuario(user.uid);
+                                deleteUser();
+                                Navigator.pop(context);
+                              },
+                              child: ButtonAcceptCancel(
+                                  texto: 'Borrar',
+                                  backgroundColor: Colors.grey[700]!,
+                                  fontColor: Colors.white))
+                        ],
+                      )),
+
+              //{userProvider.eliminaUsuario(user.uid), deleteUser()},
             ),
           ],
         ),
       )),
     );
+  }
+}
+
+class profile_photo extends StatelessWidget {
+  const profile_photo({
+    Key? key,
+    required this.user,
+  }) : super(key: key);
+
+  final User user;
+
+  @override
+  Widget build(BuildContext context) {
+    return ClipOval(
+        child: (user.photoURL != null)
+            ? Image.network(
+                user.photoURL!,
+                width: 100,
+                height: 100,
+              )
+            : Image.asset(
+                'lib/images/google.png',
+                width: 100,
+                height: 100,
+              ));
   }
 }

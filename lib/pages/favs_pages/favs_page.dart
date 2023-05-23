@@ -7,8 +7,7 @@ import 'package:stacked_card_carousel/stacked_card_carousel.dart';
 class FavsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final userProvider = Provider.of<UserProvider>(context);
-    userProvider.getPlanesFavs();
+    final userProvider = Provider.of<UserProvider>(context, listen: true);
 
     final List<Widget> fancyCards = <Widget>[
       Container(

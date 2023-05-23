@@ -86,7 +86,6 @@ class UserProvider extends ChangeNotifier {
       user.viajesFavoritos.add(id);
     }
     userService.putUsuario(user);
-    print(user.viajesFavoritos);
     notifyListeners();
   }
 
@@ -104,7 +103,7 @@ class UserProvider extends ChangeNotifier {
     planesFavs = planesFavs
         .where((plan) => user.viajesFavoritos.contains(plan.id))
         .toList();
-    notifyListeners();
+
     return planesFavs;
   }
 
