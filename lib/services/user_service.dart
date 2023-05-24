@@ -5,7 +5,7 @@ import 'package:http/http.dart' as http;
 import '../models/user_model.dart';
 
 class UserService {
-  final url = 'http://192.168.1.101:3000/api/users';
+  final url = 'http://192.168.0.103:3000/api/users';
 
   Future<UserModel> getUsuario(String id) async {
     final uri = Uri.parse("$url/$id");
