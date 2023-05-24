@@ -56,7 +56,6 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
-    print('A');
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
@@ -78,7 +77,6 @@ class _LoginPageState extends State<LoginPage> {
                     SizedBox(
                       height: 50,
                     ),
-
                     //bienvenido, te hemos hechado de menos
                     Text(
                       'Bienvenido, ¡te hemos echado de menos!',
