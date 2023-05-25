@@ -79,134 +79,281 @@ class _RegisterPageState extends State<RegisterPage> {
       child: Scaffold(
         backgroundColor: Colors.grey[300],
         body: SafeArea(
-          child: SingleChildScrollView(
-            child: Center(
-              child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    SizedBox(
-                      height: 25,
-                    ),
-                    //logo
-                    Icon(
-                      Icons.lock,
-                      size: 50,
-                    ),
-                    SizedBox(
-                      height: 25,
-                    ),
-
-                    //bienvenido, te hemos hechado de menos
-                    Text(
-                      '¡Vamos a crear una cuenta!',
-                      style: TextStyle(color: Colors.grey[700], fontSize: 16),
-                    ),
-                    SizedBox(
-                      height: 25,
-                    ),
-                    //textfield email
-                    MyTextField(
-                      textInputType: TextInputType.text,
-                      controller: emailController,
-                      hintText: 'Email',
-                      obscureText: false,
-                    ),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    //textfield contraseña
-                    MyTextField(
-                      textInputType: TextInputType.text,
-                      controller: passwordController,
-                      hintText: 'Contraseña',
-                      obscureText: true,
-                    ),
-                    SizedBox(
-                      height: 10,
-                    ),
-
-                    MyTextField(
-                      textInputType: TextInputType.text,
-                      controller: confirmPasswordController,
-                      hintText: 'Confirmar contraseña',
-                      obscureText: true,
-                    ),
-
-                    SizedBox(
-                      height: 25,
-                    ),
-                    //boton login
-                    MyButton(
-                      onTap: signUserUp,
-                      text: 'Registrarse',
-                    ),
-                    SizedBox(
-                      height: 50,
-                    ),
-                    Row(
-                      children: [
-                        Expanded(
-                            child: Divider(
-                          thickness: 0.5,
-                          color: Colors.grey[400],
-                        )),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 25.0),
-                          child: Text(
-                            'O continua con',
-                            style: TextStyle(color: Colors.grey[700]),
-                          ),
-                        ),
-                        Expanded(
-                            child: Divider(
-                          thickness: 0.5,
-                          color: Colors.grey[400],
-                        )),
-                      ],
-                    ),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    //o continua con (google boton)
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        SquareTile(
-                          imagePath: 'lib/images/google.png',
-                          onTap: () => AuthService().signInWithGoogle(),
-                        ),
-                      ],
-                    ),
-                    SizedBox(
-                      height: 50,
-                    ),
-                    //no eres miembro?registrate
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          '¿Tienes una cuenta?',
-                          style: TextStyle(color: Colors.grey[700]),
-                        ),
-                        SizedBox(
-                          width: 4,
-                        ),
-                        GestureDetector(
-                          onTap: widget.onTap,
-                          child: Text(
-                            'Logueate ahora',
-                            style: TextStyle(
-                                color: Colors.blue,
-                                fontWeight: FontWeight.bold),
-                          ),
-                        )
-                      ],
-                    )
-                  ]),
-            ),
+          child: LayoutBuilder(
+            builder: (BuildContext context, BoxConstraints constraints) {
+              if (constraints.maxWidth < 600) {
+                return SingleChildScrollView(
+                  child: pantallaMovil(),
+                );
+              } else {
+                return Center(
+                  child: SingleChildScrollView(
+                    child: pantallaOrdenador(context),
+                  ),
+                );
+              }
+            },
           ),
         ),
       ),
+    );
+  }
+
+  Column pantallaOrdenador(BuildContext context) {
+    return Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+      SizedBox(
+        height: MediaQuery.of(context).size.height * .10,
+      ),
+      Container(
+        width: 500,
+        height: 700,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(
+              Icons.lock,
+              size: 50,
+            ),
+            SizedBox(
+              height: 25,
+            ),
+
+            //bienvenido, te hemos hechado de menos
+            Text(
+              '¡Vamos a crear una cuenta!',
+              style: TextStyle(color: Colors.grey[700], fontSize: 16),
+            ),
+            SizedBox(
+              height: 25,
+            ),
+            //textfield email
+            MyTextField(
+              textInputType: TextInputType.text,
+              controller: emailController,
+              hintText: 'Email',
+              obscureText: false,
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            //textfield contraseña
+            MyTextField(
+              textInputType: TextInputType.text,
+              controller: passwordController,
+              hintText: 'Contraseña',
+              obscureText: true,
+            ),
+            SizedBox(
+              height: 10,
+            ),
+
+            MyTextField(
+              textInputType: TextInputType.text,
+              controller: confirmPasswordController,
+              hintText: 'Confirmar contraseña',
+              obscureText: true,
+            ),
+
+            SizedBox(
+              height: 25,
+            ),
+            //boton login
+            MyButton(
+              onTap: signUserUp,
+              text: 'Registrarse',
+              margin: 15,
+              padding: 15,
+            ),
+            SizedBox(
+              height: 25,
+            ),
+            Row(
+              children: [
+                Expanded(
+                    child: Divider(
+                  thickness: 0.5,
+                  color: Colors.grey[400],
+                )),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 25.0),
+                  child: Text(
+                    'O continua con',
+                    style: TextStyle(color: Colors.grey[700]),
+                  ),
+                ),
+                Expanded(
+                    child: Divider(
+                  thickness: 0.5,
+                  color: Colors.grey[400],
+                )),
+              ],
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            //o continua con (google boton)
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                SquareTile(
+                  imagePath: 'lib/images/google.png',
+                  onTap: () => AuthService().signInWithGoogle(),
+                ),
+              ],
+            ),
+            SizedBox(
+              height: 25,
+            ),
+            //no eres miembro?registrate
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  '¿Tienes una cuenta?',
+                  style: TextStyle(color: Colors.grey[700]),
+                ),
+                SizedBox(
+                  width: 4,
+                ),
+                GestureDetector(
+                  onTap: widget.onTap,
+                  child: Text(
+                    'Logueate ahora',
+                    style: TextStyle(
+                        color: Colors.blue, fontWeight: FontWeight.bold),
+                  ),
+                )
+              ],
+            )
+          ],
+        ),
+      )
+    ]);
+  }
+
+  Center pantallaMovil() {
+    return Center(
+      child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+        SizedBox(
+          height: 25,
+        ),
+        //logo
+        Icon(
+          Icons.lock,
+          size: 50,
+        ),
+        SizedBox(
+          height: 25,
+        ),
+
+        //bienvenido, te hemos hechado de menos
+        Text(
+          '¡Vamos a crear una cuenta!',
+          style: TextStyle(color: Colors.grey[700], fontSize: 16),
+        ),
+        SizedBox(
+          height: 25,
+        ),
+        //textfield email
+        MyTextField(
+          textInputType: TextInputType.text,
+          controller: emailController,
+          hintText: 'Email',
+          obscureText: false,
+        ),
+        SizedBox(
+          height: 10,
+        ),
+        //textfield contraseña
+        MyTextField(
+          textInputType: TextInputType.text,
+          controller: passwordController,
+          hintText: 'Contraseña',
+          obscureText: true,
+        ),
+        SizedBox(
+          height: 10,
+        ),
+
+        MyTextField(
+          textInputType: TextInputType.text,
+          controller: confirmPasswordController,
+          hintText: 'Confirmar contraseña',
+          obscureText: true,
+        ),
+
+        SizedBox(
+          height: 25,
+        ),
+        //boton login
+        MyButton(
+          onTap: signUserUp,
+          text: 'Registrarse',
+          margin: 15,
+          padding: 15,
+        ),
+        SizedBox(
+          height: 50,
+        ),
+        Row(
+          children: [
+            Expanded(
+                child: Divider(
+              thickness: 0.5,
+              color: Colors.grey[400],
+            )),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 25.0),
+              child: Text(
+                'O continua con',
+                style: TextStyle(color: Colors.grey[700]),
+              ),
+            ),
+            Expanded(
+                child: Divider(
+              thickness: 0.5,
+              color: Colors.grey[400],
+            )),
+          ],
+        ),
+        SizedBox(
+          height: 10,
+        ),
+        //o continua con (google boton)
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            SquareTile(
+              imagePath: 'lib/images/google.png',
+              onTap: () => AuthService().signInWithGoogle(),
+            ),
+          ],
+        ),
+        SizedBox(
+          height: 50,
+        ),
+        //no eres miembro?registrate
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              '¿Tienes una cuenta?',
+              style: TextStyle(color: Colors.grey[700]),
+            ),
+            SizedBox(
+              width: 4,
+            ),
+            GestureDetector(
+              onTap: widget.onTap,
+              child: Text(
+                'Logueate ahora',
+                style:
+                    TextStyle(color: Colors.blue, fontWeight: FontWeight.bold),
+              ),
+            )
+          ],
+        )
+      ]),
     );
   }
 }

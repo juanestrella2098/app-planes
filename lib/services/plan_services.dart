@@ -7,7 +7,7 @@ import 'package:plan_app/models/plan_model_only.dart';
 import '../models/user_model.dart';
 
 class PlanService {
-  final url = 'http://192.168.0.103:3000/api/plans';
+  final url = 'http://192.168.1.101:3000/api/plans';
 
   Future<List<PlanModel>> getPlans() async {
     final uri = Uri.parse("$url");
@@ -21,8 +21,6 @@ class PlanService {
         planes.add(planModel);
       }
     }
-
-    print(datos[0]);
 
     return planes;
   }

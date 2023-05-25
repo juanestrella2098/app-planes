@@ -151,6 +151,8 @@ class ShowUserPage extends StatelessWidget {
                   Navigator.pop(context);
                 },
                 text: 'Volver para atrás',
+                margin: 25,
+                padding: 25,
               ),
               SizedBox(
                 height: 50,

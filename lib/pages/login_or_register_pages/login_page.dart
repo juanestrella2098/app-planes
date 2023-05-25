@@ -61,21 +61,41 @@ class _LoginPageState extends State<LoginPage> {
       child: Scaffold(
         backgroundColor: Colors.grey[300],
         body: SafeArea(
-          child: SingleChildScrollView(
-            child: Center(
+          child: LayoutBuilder(
+              builder: (BuildContext context, BoxConstraints constraints) {
+            if (constraints.maxWidth < 600) {
+              return pantallaMovil(context);
+            } else {
+              return pantallaOrdenador(context);
+            }
+          }),
+        ),
+      ),
+    );
+  }
+
+  SingleChildScrollView pantallaOrdenador(BuildContext context) {
+    return SingleChildScrollView(
+      child: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            SizedBox(
+              height: MediaQuery.of(context).size.height * .10,
+            ),
+            Container(
+              margin: EdgeInsets.only(bottom: 50),
+              width: 500,
+              height: 650,
               child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    SizedBox(
-                      height: 50,
-                    ),
-                    //logo
                     Icon(
                       Icons.lock,
-                      size: 100,
+                      size: 50,
                     ),
                     SizedBox(
-                      height: 50,
+                      height: 25,
                     ),
                     //bienvenido, te hemos hechado de menos
                     Text(
@@ -133,6 +153,8 @@ class _LoginPageState extends State<LoginPage> {
                     MyButton(
                       onTap: signUserIn,
                       text: 'Iniciar Sesión',
+                      margin: 15,
+                      padding: 15,
                     ),
                     SizedBox(
                       height: 50,
@@ -197,9 +219,147 @@ class _LoginPageState extends State<LoginPage> {
                       ],
                     )
                   ]),
+            )
+          ],
+        ),
+      ),
+    );
+  }
+
+  SingleChildScrollView pantallaMovil(BuildContext context) {
+    return SingleChildScrollView(
+      child: Center(
+        child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+          SizedBox(
+            height: 50,
+          ),
+          //logo
+          Icon(
+            Icons.lock,
+            size: 100,
+          ),
+          SizedBox(
+            height: 50,
+          ),
+          //bienvenido, te hemos hechado de menos
+          Text(
+            'Bienvenido, ¡te hemos echado de menos!',
+            style: TextStyle(color: Colors.grey[700], fontSize: 16),
+          ),
+          SizedBox(
+            height: 25,
+          ),
+          //textfield email
+          MyTextField(
+            textInputType: TextInputType.text,
+            controller: emailController,
+            hintText: 'Email',
+            obscureText: false,
+          ),
+          SizedBox(
+            height: 25,
+          ),
+          //textfield contraseña
+          MyTextField(
+            textInputType: TextInputType.text,
+            controller: passwordController,
+            hintText: 'Contraseña',
+            obscureText: true,
+          ),
+          SizedBox(
+            height: 10,
+          ),
+          //olvidaste contraseña?
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 25),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                GestureDetector(
+                  onTap: (() {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => ResetPage()));
+                  }),
+                  child: Text(
+                    '¿Olvidaste la contraseña?',
+                    style: TextStyle(color: Colors.grey[600]),
+                  ),
+                ),
+              ],
             ),
           ),
-        ),
+          SizedBox(
+            height: 25,
+          ),
+          //boton login
+          MyButton(
+            onTap: signUserIn,
+            text: 'Iniciar Sesión',
+            margin: 25,
+            padding: 25,
+          ),
+          SizedBox(
+            height: 50,
+          ),
+          Row(
+            children: [
+              Expanded(
+                  child: Divider(
+                thickness: 0.5,
+                color: Colors.grey[400],
+              )),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 25.0),
+                child: Text(
+                  'O continua con',
+                  style: TextStyle(color: Colors.grey[700]),
+                ),
+              ),
+              Expanded(
+                  child: Divider(
+                thickness: 0.5,
+                color: Colors.grey[400],
+              )),
+            ],
+          ),
+          SizedBox(
+            height: 10,
+          ),
+          //o continua con (google boton)
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              SquareTile(
+                imagePath: 'lib/images/google.png',
+                onTap: () => AuthService().signInWithGoogle(),
+              ),
+            ],
+          ),
+          SizedBox(
+            height: 50,
+          ),
+          //no eres miembro?registrate
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                '¿No te uniste?',
+                style: TextStyle(color: Colors.grey[700]),
+              ),
+              SizedBox(
+                width: 4,
+              ),
+              GestureDetector(
+                onTap: widget.onTap,
+                child: Text(
+                  'Regístrate ahora',
+                  style: TextStyle(
+                      color: Colors.blue, fontWeight: FontWeight.bold),
+                ),
+              )
+            ],
+          )
+        ]),
       ),
     );
   }

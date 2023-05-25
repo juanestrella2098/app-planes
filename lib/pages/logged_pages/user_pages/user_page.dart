@@ -35,143 +35,293 @@ class UserPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final userProvider = Provider.of<UserProvider>(context);
     return SafeArea(
-      child: Center(
-          child: SingleChildScrollView(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            SizedBox(
-              height: 25,
-            ),
-            MyButtonProfile(
-              backgroundColor: Colors.grey[700]!,
-              text: 'Ver planes realizados',
-              onTap: () async {
-                await userProvider.getPlanesRealizados();
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => PlansRealizedPage()));
-              },
-            ),
-            SizedBox(
-              height: 25,
-            ),
-            MyButtonProfile(
-              backgroundColor: Colors.grey[700]!,
-              text: 'Ver perfil',
-              onTap: () async {
-                await userProvider.usuarioRegistrado(user.uid)
-                    ? Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) =>
-                                ShowUserPage())) //Lanzar el alert de los datos
-                    : //lanzar el alert de los datos
+      child: Center(child: SingleChildScrollView(
+        child: LayoutBuilder(
+            builder: (BuildContext context, BoxConstraints constraints) {
+          if (constraints.maxWidth < 600) {
+            return Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                SizedBox(
+                  height: 25,
+                ),
+                MyButtonProfile(
+                  backgroundColor: Colors.grey[700]!,
+                  text: 'Ver planes realizados',
+                  onTap: () async {
+                    await userProvider.getPlanesRealizados();
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => CreateUserPage()));
-              },
-            ),
-            SizedBox(
-              height: 25,
-            ),
-            MyButtonProfile(
-              backgroundColor: Colors.grey[700]!,
-              text: 'Actualizar perfil',
-              onTap: () async {
-                await userProvider.usuarioRegistrado(user.uid)
-                    ? Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) =>
-                                UpdateUserPage())) //Lanzar el alert de los datos
-                    : //lanzar el alert de los datos
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => CreateUserPage()));
-              },
-            ),
-            SizedBox(
-              height: 25,
-            ),
-            MyButtonProfile(
-              backgroundColor: Colors.grey[700]!,
-              text: 'Cerrar Sesión',
-              onTap: () => showDialog(
-                  context: context,
-                  builder: (BuildContext context) => AlertDialog(
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(30)),
-                        title: Text('¿Quieres cerrar sesión?'),
-                        content: Text('Vas a cerrar sesión'),
-                        actions: [
-                          TextButton(
-                              onPressed: () {
-                                Navigator.pop(context);
-                              },
-                              child: ButtonAcceptCancel(
-                                texto: "Cancelar",
-                                backgroundColor: Colors.grey,
-                                fontColor: Colors.black,
-                              )),
-                          TextButton(
-                              onPressed: () async {
-                                await userProvider.reseteaProvider();
-                                await Future.delayed(Duration(seconds: 1));
-                                signUserOut();
-                                Navigator.pop(context);
-                              },
-                              child: ButtonAcceptCancel(
-                                  texto: 'Cerrar sesión',
-                                  backgroundColor: Colors.grey[700]!,
-                                  fontColor: Colors.white))
-                        ],
-                      )),
-            ),
-            SizedBox(
-              height: 25,
-            ),
-            MyButtonProfile(
-              backgroundColor: Colors.red[700]!,
-              text: 'Eliminar perfil',
-              onTap: () => showDialog(
-                  context: context,
-                  builder: (BuildContext context) => AlertDialog(
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(30)),
-                        title: Text('¿Borrar tu cuenta?'),
-                        content: Text('Vas a borrar la cuenta'),
-                        actions: [
-                          TextButton(
-                              onPressed: () {
-                                Navigator.pop(context);
-                              },
-                              child: ButtonAcceptCancel(
-                                texto: "Cancelar",
-                                backgroundColor: Colors.grey,
-                                fontColor: Colors.black,
-                              )),
-                          TextButton(
-                              onPressed: () {
-                                userProvider.eliminaUsuario(user.uid);
-                                userProvider.reseteaProvider();
-                                deleteUser();
-                                Navigator.pop(context);
-                              },
-                              child: ButtonAcceptCancel(
-                                  texto: 'Borrar',
-                                  backgroundColor: Colors.grey[700]!,
-                                  fontColor: Colors.white))
-                        ],
-                      )),
+                            builder: (context) => PlansRealizedPage()));
+                  },
+                ),
+                SizedBox(
+                  height: 25,
+                ),
+                MyButtonProfile(
+                  backgroundColor: Colors.grey[700]!,
+                  text: 'Ver perfil',
+                  onTap: () async {
+                    await userProvider.usuarioRegistrado(user.uid)
+                        ? Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    ShowUserPage())) //Lanzar el alert de los datos
+                        : //lanzar el alert de los datos
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => CreateUserPage()));
+                  },
+                ),
+                SizedBox(
+                  height: 25,
+                ),
+                MyButtonProfile(
+                  backgroundColor: Colors.grey[700]!,
+                  text: 'Actualizar perfil',
+                  onTap: () async {
+                    await userProvider.usuarioRegistrado(user.uid)
+                        ? Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    UpdateUserPage())) //Lanzar el alert de los datos
+                        : //lanzar el alert de los datos
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => CreateUserPage()));
+                  },
+                ),
+                SizedBox(
+                  height: 25,
+                ),
+                MyButtonProfile(
+                  backgroundColor: Colors.grey[700]!,
+                  text: 'Cerrar Sesión',
+                  onTap: () => showDialog(
+                      context: context,
+                      builder: (BuildContext context) => AlertDialog(
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(30)),
+                            title: Text('¿Quieres cerrar sesión?'),
+                            content: Text('Vas a cerrar sesión'),
+                            actions: [
+                              TextButton(
+                                  onPressed: () {
+                                    Navigator.pop(context);
+                                  },
+                                  child: ButtonAcceptCancel(
+                                    texto: "Cancelar",
+                                    backgroundColor: Colors.grey,
+                                    fontColor: Colors.black,
+                                  )),
+                              TextButton(
+                                  onPressed: () async {
+                                    await userProvider.reseteaProvider();
+                                    await Future.delayed(Duration(seconds: 1));
+                                    signUserOut();
+                                    Navigator.pop(context);
+                                  },
+                                  child: ButtonAcceptCancel(
+                                      texto: 'Cerrar sesión',
+                                      backgroundColor: Colors.grey[700]!,
+                                      fontColor: Colors.white))
+                            ],
+                          )),
+                ),
+                SizedBox(
+                  height: 25,
+                ),
+                MyButtonProfile(
+                  backgroundColor: Colors.red[700]!,
+                  text: 'Eliminar perfil',
+                  onTap: () => showDialog(
+                      context: context,
+                      builder: (BuildContext context) => AlertDialog(
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(30)),
+                            title: Text('¿Borrar tu cuenta?'),
+                            content: Text('Vas a borrar la cuenta'),
+                            actions: [
+                              TextButton(
+                                  onPressed: () {
+                                    Navigator.pop(context);
+                                  },
+                                  child: ButtonAcceptCancel(
+                                    texto: "Cancelar",
+                                    backgroundColor: Colors.grey,
+                                    fontColor: Colors.black,
+                                  )),
+                              TextButton(
+                                  onPressed: () {
+                                    userProvider.eliminaUsuario(user.uid);
+                                    userProvider.reseteaProvider();
+                                    deleteUser();
+                                    Navigator.pop(context);
+                                  },
+                                  child: ButtonAcceptCancel(
+                                      texto: 'Borrar',
+                                      backgroundColor: Colors.grey[700]!,
+                                      fontColor: Colors.white))
+                            ],
+                          )),
 
-              //{userProvider.eliminaUsuario(user.uid), deleteUser()},
-            ),
-          ],
-        ),
+                  //{userProvider.eliminaUsuario(user.uid), deleteUser()},
+                ),
+              ],
+            );
+          } else {
+            return Container(
+              width: 500,
+              height: 650,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      SizedBox(
+                        height: 25,
+                      ),
+                      MyButtonProfile(
+                        backgroundColor: Colors.grey[700]!,
+                        text: 'Ver planes realizados',
+                        onTap: () async {
+                          await userProvider.getPlanesRealizados();
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => PlansRealizedPage()));
+                        },
+                      ),
+                      SizedBox(
+                        height: 25,
+                      ),
+                      MyButtonProfile(
+                        backgroundColor: Colors.grey[700]!,
+                        text: 'Ver perfil',
+                        onTap: () async {
+                          await userProvider.usuarioRegistrado(user.uid)
+                              ? Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          ShowUserPage())) //Lanzar el alert de los datos
+                              : //lanzar el alert de los datos
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => CreateUserPage()));
+                        },
+                      ),
+                      SizedBox(
+                        height: 25,
+                      ),
+                      MyButtonProfile(
+                        backgroundColor: Colors.grey[700]!,
+                        text: 'Actualizar perfil',
+                        onTap: () async {
+                          await userProvider.usuarioRegistrado(user.uid)
+                              ? Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          UpdateUserPage())) //Lanzar el alert de los datos
+                              : //lanzar el alert de los datos
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => CreateUserPage()));
+                        },
+                      ),
+                      SizedBox(
+                        height: 25,
+                      ),
+                      MyButtonProfile(
+                        backgroundColor: Colors.grey[700]!,
+                        text: 'Cerrar Sesión',
+                        onTap: () => showDialog(
+                            context: context,
+                            builder: (BuildContext context) => AlertDialog(
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(30)),
+                                  title: Text('¿Quieres cerrar sesión?'),
+                                  content: Text('Vas a cerrar sesión'),
+                                  actions: [
+                                    TextButton(
+                                        onPressed: () {
+                                          Navigator.pop(context);
+                                        },
+                                        child: ButtonAcceptCancel(
+                                          texto: "Cancelar",
+                                          backgroundColor: Colors.grey,
+                                          fontColor: Colors.black,
+                                        )),
+                                    TextButton(
+                                        onPressed: () async {
+                                          await userProvider.reseteaProvider();
+                                          await Future.delayed(
+                                              Duration(seconds: 1));
+                                          signUserOut();
+                                          Navigator.pop(context);
+                                        },
+                                        child: ButtonAcceptCancel(
+                                            texto: 'Cerrar sesión',
+                                            backgroundColor: Colors.grey[700]!,
+                                            fontColor: Colors.white))
+                                  ],
+                                )),
+                      ),
+                      SizedBox(
+                        height: 25,
+                      ),
+                      MyButtonProfile(
+                        backgroundColor: Colors.red[700]!,
+                        text: 'Eliminar perfil',
+                        onTap: () => showDialog(
+                            context: context,
+                            builder: (BuildContext context) => AlertDialog(
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(30)),
+                                  title: Text('¿Borrar tu cuenta?'),
+                                  content: Text('Vas a borrar la cuenta'),
+                                  actions: [
+                                    TextButton(
+                                        onPressed: () {
+                                          Navigator.pop(context);
+                                        },
+                                        child: ButtonAcceptCancel(
+                                          texto: "Cancelar",
+                                          backgroundColor: Colors.grey,
+                                          fontColor: Colors.black,
+                                        )),
+                                    TextButton(
+                                        onPressed: () {
+                                          userProvider.eliminaUsuario(user.uid);
+                                          userProvider.reseteaProvider();
+                                          deleteUser();
+                                          Navigator.pop(context);
+                                        },
+                                        child: ButtonAcceptCancel(
+                                            texto: 'Borrar',
+                                            backgroundColor: Colors.grey[700]!,
+                                            fontColor: Colors.white))
+                                  ],
+                                )),
+
+                        //{userProvider.eliminaUsuario(user.uid), deleteUser()},
+                      ),
+                    ],
+                  )
+                ],
+              ),
+            );
+          }
+        }),
       )),
     );
   }
