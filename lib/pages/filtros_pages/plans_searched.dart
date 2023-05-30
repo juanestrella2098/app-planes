@@ -16,12 +16,13 @@ class PlanSearchedPage extends StatelessWidget {
         decoration: BoxDecoration(
             color: Colors.grey, borderRadius: BorderRadius.circular(30)),
         child: Center(
-            child: Text(
-          (filtroProvider.planesAux.isEmpty)
-              ? 'No se han encontrado planes :('
-              : 'Se han encontrado ${filtroProvider.planesAux.length} plan/es',
-          style: TextStyle(color: Colors.white),
-        )),
+          child: Text(
+            (filtroProvider.planesAux.isEmpty)
+                ? 'No se han encontrado planes :('
+                : 'Se han encontrado ${filtroProvider.planesAux.length} plan/es',
+            style: TextStyle(color: Colors.white),
+          ),
+        ),
       )
     ];
     filtroProvider.planesAux.asMap().forEach((index, plan) {
@@ -38,6 +39,17 @@ class PlanSearchedPage extends StatelessWidget {
         initialOffset: 120,
         items: fancyCards,
       )),
+      floatingActionButtonLocation: FloatingActionButtonLocation.startTop,
+      floatingActionButton: Container(
+        margin: EdgeInsets.only(top: 10),
+        child: FloatingActionButton(
+            backgroundColor: Colors.grey[700],
+            onPressed: (() {
+              Navigator.pop(context);
+            }),
+            elevation: 0,
+            child: const Icon(Icons.arrow_back)),
+      ),
     );
   }
 }

@@ -624,7 +624,7 @@ class pantallaOrdenador extends StatelessWidget {
     return Column(
       children: [
         SizedBox(
-          height: MediaQuery.of(context).size.height / 10,
+          height: MediaQuery.of(context).size.height / 7,
         ),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -1083,7 +1083,7 @@ class pantallaOrdenador extends StatelessWidget {
           ],
         ),
         SizedBox(
-          height: 30,
+          height: MediaQuery.of(context).size.height * .1,
         ),
         GestureDetector(
           onTap: () async {

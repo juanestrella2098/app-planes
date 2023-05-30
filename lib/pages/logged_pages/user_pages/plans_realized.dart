@@ -37,6 +37,17 @@ class PlansRealizedPage extends StatelessWidget {
         initialOffset: 120,
         items: fancyCards,
       )),
+      floatingActionButtonLocation: FloatingActionButtonLocation.startTop,
+      floatingActionButton: Container(
+        margin: EdgeInsets.only(top: 10),
+        child: FloatingActionButton(
+            backgroundColor: Colors.grey[700],
+            onPressed: (() {
+              Navigator.pop(context);
+            }),
+            elevation: 0,
+            child: const Icon(Icons.arrow_back)),
+      ),
     );
   }
 }

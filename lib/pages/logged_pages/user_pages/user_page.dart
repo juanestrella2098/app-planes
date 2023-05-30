@@ -157,10 +157,11 @@ class UserPage extends StatelessWidget {
                                     fontColor: Colors.black,
                                   )),
                               TextButton(
-                                  onPressed: () {
+                                  onPressed: () async {
                                     userProvider.eliminaUsuario(user.uid);
                                     userProvider.reseteaProvider();
                                     deleteUser();
+                                    await Future.delayed(Duration(seconds: 1));
                                     Navigator.pop(context);
                                   },
                                   child: ButtonAcceptCancel(
@@ -300,10 +301,13 @@ class UserPage extends StatelessWidget {
                                           fontColor: Colors.black,
                                         )),
                                     TextButton(
-                                        onPressed: () {
+                                        onPressed: () async {
                                           userProvider.eliminaUsuario(user.uid);
                                           userProvider.reseteaProvider();
+                                          await Future.delayed(
+                                              Duration(seconds: 1));
                                           deleteUser();
+
                                           Navigator.pop(context);
                                         },
                                         child: ButtonAcceptCancel(

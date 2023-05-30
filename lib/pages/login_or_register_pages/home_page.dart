@@ -60,17 +60,99 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Stack(
-        children: <Widget>[
-          Padding(
-            padding: EdgeInsets.only(bottom: bottomNavBarHeight),
-            child: bodyContainer(),
-          ),
-          Align(alignment: Alignment.bottomCenter, child: bottomNav())
-        ],
-      ),
-    );
+    final userProvider = Provider.of<UserProvider>(context);
+    final filtroProvider = Provider.of<FiltroProviders>(context);
+    return Scaffold(body: LayoutBuilder(
+      builder: (BuildContext context, BoxConstraints constraints) {
+        return Stack(
+          children: <Widget>[
+            (constraints.maxWidth > 600)
+                ? Padding(
+                    padding: EdgeInsets.only(bottom: bottomNavBarHeight),
+                    child: bodyContainer(),
+                  )
+                : SizedBox(
+                    height: MediaQuery.of(context).size.height,
+                    width: MediaQuery.of(context).size.width,
+                    child: bodyContainer(),
+                  ),
+            (constraints.maxWidth > 600)
+                ? Align(
+                    alignment: Alignment.topCenter,
+                    child: Container(
+                      width: MediaQuery.of(context).size.width,
+                      height: 80,
+                      decoration: BoxDecoration(
+                          color: Colors.grey[700],
+                          borderRadius: const BorderRadius.only(
+                              bottomLeft: Radius.circular(25),
+                              bottomRight: Radius.circular(25))),
+                      child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: [
+                            GestureDetector(
+                              child: Container(
+                                width: 70,
+                                height: double.infinity,
+                                color: Colors.red,
+                              ),
+                              onTap: () async {
+                                if (flag == false) {
+                                  await userProvider
+                                      .usuarioRegistrado(user.uid);
+                                  flag = true;
+                                }
+                                await userProvider.getPlanesFavs();
+                                _selectedIndex = 0;
+                                setState(() {
+                                  filtroProvider.reseteProvider();
+                                });
+                              },
+                            ),
+                            GestureDetector(
+                              child: Container(
+                                width: 70,
+                                height: double.infinity,
+                                color: Colors.red,
+                              ),
+                              onTap: () async {
+                                if (flag == false) {
+                                  await userProvider
+                                      .usuarioRegistrado(user.uid);
+                                  flag = true;
+                                }
+                                _selectedIndex = 1;
+                                setState(() {
+                                  filtroProvider.reseteProvider();
+                                });
+                              },
+                            ),
+                            GestureDetector(
+                              child: Container(
+                                width: 70,
+                                height: double.infinity,
+                                color: Colors.red,
+                              ),
+                              onTap: (() async {
+                                if (flag == false) {
+                                  await userProvider
+                                      .usuarioRegistrado(user.uid);
+                                  flag = true;
+                                }
+                                _selectedIndex = 2;
+                                setState(() {
+                                  filtroProvider.reseteProvider();
+                                });
+                              }),
+                            ),
+                          ]),
+                    ),
+                  )
+                : Align(alignment: Alignment.bottomCenter, child: bottomNav())
+          ],
+        );
+      },
+    ));
   }
 
   Widget bodyContainer() {
@@ -114,7 +196,6 @@ class _HomePageState extends State<HomePage> {
         setState(() {
           filtroProvider.reseteProvider();
           _selectedIndex = selectedPos ?? 0;
-          print(_navigationController.value);
         });
       },
     );
