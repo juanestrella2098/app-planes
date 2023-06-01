@@ -64,93 +64,152 @@ class _HomePageState extends State<HomePage> {
     final filtroProvider = Provider.of<FiltroProviders>(context);
     return Scaffold(body: LayoutBuilder(
       builder: (BuildContext context, BoxConstraints constraints) {
-        return Stack(
-          children: <Widget>[
-            (constraints.maxWidth > 600)
-                ? Padding(
-                    padding: EdgeInsets.only(bottom: bottomNavBarHeight),
-                    child: bodyContainer(),
-                  )
-                : SizedBox(
-                    height: MediaQuery.of(context).size.height,
-                    width: MediaQuery.of(context).size.width,
-                    child: bodyContainer(),
-                  ),
-            (constraints.maxWidth > 600)
-                ? Align(
-                    alignment: Alignment.topCenter,
-                    child: Container(
-                      width: MediaQuery.of(context).size.width,
-                      height: 80,
-                      decoration: BoxDecoration(
-                          color: Colors.grey[700],
-                          borderRadius: const BorderRadius.only(
-                              bottomLeft: Radius.circular(25),
-                              bottomRight: Radius.circular(25))),
-                      child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          children: [
-                            GestureDetector(
-                              child: Container(
-                                width: 70,
-                                height: double.infinity,
-                                color: Colors.red,
-                              ),
-                              onTap: () async {
-                                if (flag == false) {
-                                  await userProvider
-                                      .usuarioRegistrado(user.uid);
-                                  flag = true;
-                                }
-                                await userProvider.getPlanesFavs();
-                                _selectedIndex = 0;
-                                setState(() {
-                                  filtroProvider.reseteProvider();
-                                });
-                              },
+        if (constraints.maxWidth < 600) {
+          return Stack(
+            children: <Widget>[
+              Padding(
+                padding: EdgeInsets.only(bottom: bottomNavBarHeight),
+                child: bodyContainer(),
+              ),
+              Align(alignment: Alignment.bottomCenter, child: bottomNav())
+            ],
+          );
+        } else {
+          return Stack(
+            children: [
+              Align(
+                alignment: Alignment.topCenter,
+                child: Container(
+                  width: MediaQuery.of(context).size.width,
+                  height: 50,
+                  decoration: BoxDecoration(
+                      color: Colors.grey[700],
+                      borderRadius: const BorderRadius.only(
+                          bottomLeft: Radius.circular(25),
+                          bottomRight: Radius.circular(25))),
+                  child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        GestureDetector(
+                          child: Container(
+                            width: 70,
+                            height: double.infinity,
+                            child: Center(
+                              child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Icon(
+                                      (Icons.favorite),
+                                      color: (_selectedIndex == 0)
+                                          ? Colors.white
+                                          : Colors.grey,
+                                    ),
+                                    Text(
+                                      'Favoritos',
+                                      style: TextStyle(
+                                          color: (_selectedIndex == 0)
+                                              ? Colors.white
+                                              : Colors.grey),
+                                    ),
+                                  ]),
                             ),
-                            GestureDetector(
-                              child: Container(
-                                width: 70,
-                                height: double.infinity,
-                                color: Colors.red,
-                              ),
-                              onTap: () async {
-                                if (flag == false) {
-                                  await userProvider
-                                      .usuarioRegistrado(user.uid);
-                                  flag = true;
-                                }
-                                _selectedIndex = 1;
-                                setState(() {
-                                  filtroProvider.reseteProvider();
-                                });
-                              },
+                          ),
+                          onTap: () async {
+                            if (flag == false) {
+                              await userProvider.usuarioRegistrado(user.uid);
+                              flag = true;
+                            }
+                            await userProvider.getPlanesFavs();
+                            _selectedIndex = 0;
+
+                            setState(() {
+                              _navigationController.value = 0;
+                              filtroProvider.reseteProvider();
+                            });
+                          },
+                        ),
+                        GestureDetector(
+                          child: SizedBox(
+                            width: 70,
+                            height: double.infinity,
+                            child: Center(
+                              child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Icon(
+                                      (Icons.search),
+                                      color: (_selectedIndex == 1)
+                                          ? Colors.white
+                                          : Colors.grey,
+                                    ),
+                                    Text(
+                                      'Explora',
+                                      style: TextStyle(
+                                          color: (_selectedIndex == 1)
+                                              ? Colors.white
+                                              : Colors.grey),
+                                    )
+                                  ]),
                             ),
-                            GestureDetector(
-                              child: Container(
-                                width: 70,
-                                height: double.infinity,
-                                color: Colors.red,
-                              ),
-                              onTap: (() async {
-                                if (flag == false) {
-                                  await userProvider
-                                      .usuarioRegistrado(user.uid);
-                                  flag = true;
-                                }
-                                _selectedIndex = 2;
-                                setState(() {
-                                  filtroProvider.reseteProvider();
-                                });
-                              }),
+                          ),
+                          onTap: () async {
+                            if (flag == false) {
+                              await userProvider.usuarioRegistrado(user.uid);
+                              flag = true;
+                            }
+                            _selectedIndex = 1;
+                            setState(() {
+                              _navigationController.value = 1;
+                              filtroProvider.reseteProvider();
+                            });
+                          },
+                        ),
+                        GestureDetector(
+                          onTap: (() async {
+                            if (flag == false) {
+                              await userProvider.usuarioRegistrado(user.uid);
+                              flag = true;
+                            }
+                            _selectedIndex = 2;
+                            setState(() {
+                              _navigationController.value = 2;
+                              filtroProvider.reseteProvider();
+                            });
+                          }),
+                          child: SizedBox(
+                            width: 70,
+                            height: double.infinity,
+                            child: Center(
+                              child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Icon(
+                                      (Icons.person),
+                                      color: (_selectedIndex == 2)
+                                          ? Colors.white
+                                          : Colors.grey,
+                                    ),
+                                    Text(
+                                      'Perfil',
+                                      style: TextStyle(
+                                          color: (_selectedIndex == 2)
+                                              ? Colors.white
+                                              : Colors.grey),
+                                    )
+                                  ]),
                             ),
-                          ]),
-                    ),
-                  )
-                : Align(alignment: Alignment.bottomCenter, child: bottomNav())
-          ],
-        );
+                          ),
+                        ),
+                      ]),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(top: 60),
+                child: bodyContainer(),
+              ),
+            ],
+          );
+        }
       },
     ));
   }
@@ -193,9 +252,9 @@ class _HomePageState extends State<HomePage> {
         if (selectedPos == 0) {
           await userProvider.getPlanesFavs();
         }
+        _selectedIndex = selectedPos ?? 0;
         setState(() {
           filtroProvider.reseteProvider();
-          _selectedIndex = selectedPos ?? 0;
         });
       },
     );

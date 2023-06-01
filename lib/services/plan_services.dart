@@ -1,10 +1,7 @@
 import 'dart:convert';
-
 import 'package:http/http.dart' as http;
 import 'package:plan_app/models/plan_model.dart';
 import 'package:plan_app/models/plan_model_only.dart';
-
-import '../models/user_model.dart';
 
 class PlanService {
   final url = 'http://192.168.1.101:3000/api/plans';
@@ -35,11 +32,14 @@ class PlanService {
         headers: {"Content-Type": "application/json"});
   }
 
-  void getPlanAndUpdateRating(String id, int rate) async {
+  void getPlanAndUpdateRating(
+      String id, int rate, int cantVotadaAnterior) async {
     final uri = Uri.parse("$url/$id");
     final response = await http.get(uri);
     PlanModelOnly planModelOnly = PlanModelOnly.fromJson(response.body);
-    planModelOnly.rating = rate ~/ planModelOnly.contador;
+    planModelOnly.cantSumada =
+        ((planModelOnly.cantSumada - cantVotadaAnterior) + rate);
+    planModelOnly.rating = planModelOnly.cantSumada ~/ planModelOnly.contador;
     await http.put(uri,
         body: planModelOnly.toJson(),
         headers: {"Content-Type": "application/json"});

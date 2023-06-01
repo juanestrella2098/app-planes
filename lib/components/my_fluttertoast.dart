@@ -6,7 +6,7 @@ Future<Future<bool?>> myCustomFlutterToast(String texto, Color color) async {
       msg: texto,
       toastLength: Toast.LENGTH_SHORT,
       gravity: ToastGravity.BOTTOM,
-      timeInSecForIosWeb: 1,
+      timeInSecForIosWeb: 2,
       backgroundColor: color,
       textColor: Colors.white,
       fontSize: 16.0);

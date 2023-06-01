@@ -43,6 +43,15 @@ class _LoginPageState extends State<LoginPage> {
       await FirebaseAuth.instance.signInWithEmailAndPassword(
           email: emailController.text, password: passwordController.text);
     } on FirebaseAuthException catch (e) {
+      //field empty or not enter a email
+      if (!emailController.text.contains("@") ||
+          (emailController.text.isEmpty || passwordController.text.isEmpty)) {
+        emailController.text = '';
+        passwordController.text = '';
+        FocusScope.of(context).unfocus();
+        myCustomFlutterToast("Campos mal introducidos", Colors.red);
+        // show error to user
+      }
       //Wrong email
       if (e.code == 'user-not-found' || e.code == 'wrong-password') {
         emailController.text = '';

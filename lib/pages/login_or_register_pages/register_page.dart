@@ -61,6 +61,26 @@ class _RegisterPageState extends State<RegisterPage> {
         myCustomFlutterToast("Las contraseñas no coinciden", Colors.red);
       }
     } on FirebaseAuthException catch (e) {
+      if (!emailController.text.contains("@") ||
+          (emailController.text.isEmpty ||
+              passwordController.text.isEmpty ||
+              confirmPasswordController.text.isEmpty)) {
+        emailController.text = '';
+        passwordController.text = '';
+        confirmPasswordController.text = '';
+        FocusScope.of(context).unfocus();
+        myCustomFlutterToast("Campos mal introducidos", Colors.red);
+        // show error to user
+      }
+      if (e.code == 'email-already-in-use') {
+        emailController.text = '';
+        passwordController.text = '';
+        confirmPasswordController.text = '';
+        FocusScope.of(context).unfocus();
+        myCustomFlutterToast(
+            "Usuario registrado con otro uso de sesión o ya existe",
+            Colors.red);
+      }
       //Wrong email
       if (e.code == 'user-not-found' || e.code == 'wrong-password') {
         emailController.text = '';

@@ -1,12 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:plan_app/components/my_fluttertoast.dart';
 
 import '../../components/my_button.dart';
 import '../../components/my_textfield.dart';
-import '../../components/square_tile.dart';
-import '../../services/auth_services.dart';
 
 class ResetPage extends StatefulWidget {
   @override
@@ -37,7 +34,15 @@ class _ResetPageState extends State<ResetPage> {
           .sendPasswordResetEmail(email: emailController.text);
       myCustomFlutterToast(
           "Se ha enviado un correo con tu nueva contraseña", Colors.green);
+      emailController.text = '';
     } on FirebaseAuthException catch (e) {
+      if (!emailController.text.contains("@") ||
+          (emailController.text.isEmpty)) {
+        emailController.text = '';
+        FocusScope.of(context).unfocus();
+        myCustomFlutterToast("Campos mal introducidos", Colors.red);
+        // show error to user
+      }
       //Wrong email
       if (e.code == 'user-not-found') {
         emailController.text = '';

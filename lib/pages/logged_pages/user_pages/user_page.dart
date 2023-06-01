@@ -178,7 +178,7 @@ class UserPage extends StatelessWidget {
           } else {
             return Container(
               width: 500,
-              height: 650,
+              height: 500,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [

@@ -10,9 +10,9 @@ class UserService {
   Future<UserModel> getUsuario(String id) async {
     final uri = Uri.parse("$url/$id");
     final response = await http.get(uri);
-
     try {
       final UserModel resp = UserModel.fromJson(response.body);
+
       return resp;
     } catch (e) {
       final UserModel resp = UserModel(

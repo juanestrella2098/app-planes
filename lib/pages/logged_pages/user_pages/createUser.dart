@@ -201,11 +201,13 @@ class CreateUserPage extends StatelessWidget {
                             //boton login
                             MyButton(
                               onTap: () {
-                                (nombreController.text.isEmpty &&
-                                        surnameController.text.isEmpty &&
-                                        edadController.text.isEmpty)
+                                ((nombreController.text.isEmpty &&
+                                            surnameController.text.isEmpty &&
+                                            edadController.text.isEmpty) ||
+                                        (num.tryParse(edadController.text) ==
+                                            null))
                                     ? myCustomFlutterToast(
-                                        "Algunos de los campos estan vacios",
+                                        "Algunos de los campos estan vacios o mal introducidos",
                                         Colors.red)
                                     : {
                                         userProvider.registrarUsuario(

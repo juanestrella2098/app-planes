@@ -17,147 +17,311 @@ class ShowUserPage extends StatelessWidget {
         backgroundColor: Colors.grey[300],
         body: SafeArea(
           child: Center(
-            child:
-                Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-              SizedBox(
-                height: 25,
-              ),
-              //logo
-              CircleAvatar(
-                radius: 50,
-                backgroundColor: Colors.grey[700],
-                child: Text(
-                  userProvider.user.nombre[0],
-                  style: TextStyle(fontSize: 30, color: Colors.white),
-                ),
-              ),
-              SizedBox(
-                height: 25,
-              ),
-              //bienvenido, te hemos hechado de menos
-              Text(
-                'Tus datos',
-                style: TextStyle(color: Colors.grey[700], fontSize: 16),
-              ),
-              SizedBox(
-                height: 25,
-              ),
-              //textfield email
-              Padding(
-                padding: const EdgeInsets.all(10),
-                child: Container(
-                  width: MediaQuery.of(context).size.width,
-                  height: MediaQuery.of(context).size.height * .125,
-                  decoration: BoxDecoration(
-                      color: Colors.grey,
-                      borderRadius: BorderRadius.circular(50)),
-                  child: Stack(children: [
-                    Align(
-                      alignment: Alignment.topLeft,
-                      child: Container(
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.only(
-                              topLeft: Radius.circular(50),
-                              bottomRight: Radius.circular(50)),
-                          color: Colors.grey[700],
+            child: LayoutBuilder(
+                builder: (BuildContext context, BoxConstraints constraints) {
+              if (constraints.maxWidth < 600) {
+                return SingleChildScrollView(
+                  child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        SizedBox(
+                          height: 25,
                         ),
-                        width: MediaQuery.of(context).size.width * 0.5,
-                        height: 40,
-                        child: Center(
-                            child: Text(
-                          'Nombre y Apellidos',
-                          style: TextStyle(color: Colors.white),
-                        )),
-                      ),
-                    ),
-                    Align(
-                      alignment: Alignment.center,
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          SizedBox(
-                            height: 15,
+                        //logo
+                        CircleAvatar(
+                          radius: 50,
+                          backgroundColor: Colors.grey[700],
+                          child: Text(
+                            userProvider.user.nombre[0],
+                            style: TextStyle(fontSize: 30, color: Colors.white),
                           ),
-                          Text(
-                            '${userProvider.user.nombre} ${userProvider.user.apellido}',
-                            style: TextStyle(fontSize: 20),
-                          ),
-                        ],
-                      ),
-                    )
-                  ]),
-                ),
-              ),
-              SizedBox(
-                height: 25,
-              ),
-              //textfield contraseña
-              Padding(
-                padding: const EdgeInsets.all(10),
-                child: Container(
-                  width: MediaQuery.of(context).size.width,
-                  height: MediaQuery.of(context).size.height * .125,
-                  decoration: BoxDecoration(
-                      color: Colors.grey,
-                      borderRadius: BorderRadius.circular(50)),
-                  child: Stack(children: [
-                    Align(
-                      alignment: Alignment.topLeft,
-                      child: Container(
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.only(
-                              topLeft: Radius.circular(50),
-                              bottomRight: Radius.circular(50)),
-                          color: Colors.grey[700],
                         ),
-                        width: MediaQuery.of(context).size.width * 0.5,
-                        height: 40,
-                        child: Center(
-                            child: Text(
-                          'Edad',
-                          style: TextStyle(color: Colors.white),
-                        )),
-                      ),
-                    ),
-                    Align(
-                      alignment: Alignment.center,
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          SizedBox(
-                            height: 15,
+                        SizedBox(
+                          height: 25,
+                        ),
+                        //bienvenido, te hemos hechado de menos
+                        Text(
+                          'Tus datos',
+                          style:
+                              TextStyle(color: Colors.grey[700], fontSize: 16),
+                        ),
+                        SizedBox(
+                          height: 25,
+                        ),
+                        //textfield email
+                        Padding(
+                          padding: const EdgeInsets.all(10),
+                          child: Container(
+                            width: MediaQuery.of(context).size.width,
+                            height: MediaQuery.of(context).size.height * .125,
+                            decoration: BoxDecoration(
+                                color: Colors.grey,
+                                borderRadius: BorderRadius.circular(50)),
+                            child: Stack(children: [
+                              Align(
+                                alignment: Alignment.topLeft,
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.only(
+                                        topLeft: Radius.circular(50),
+                                        bottomRight: Radius.circular(50)),
+                                    color: Colors.grey[700],
+                                  ),
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.5,
+                                  height: 40,
+                                  child: Center(
+                                      child: Text(
+                                    'Nombre y Apellidos',
+                                    style: TextStyle(color: Colors.white),
+                                  )),
+                                ),
+                              ),
+                              Align(
+                                alignment: Alignment.center,
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    SizedBox(
+                                      height: 15,
+                                    ),
+                                    Text(
+                                      '${userProvider.user.nombre} ${userProvider.user.apellido}',
+                                      style: TextStyle(fontSize: 20),
+                                    ),
+                                  ],
+                                ),
+                              )
+                            ]),
                           ),
-                          Text(
-                            userProvider.user.edad.toString(),
-                            style: TextStyle(fontSize: 20),
+                        ),
+                        SizedBox(
+                          height: 25,
+                        ),
+                        //textfield contraseña
+                        Padding(
+                          padding: const EdgeInsets.all(10),
+                          child: Container(
+                            width: MediaQuery.of(context).size.width,
+                            height: MediaQuery.of(context).size.height * .125,
+                            decoration: BoxDecoration(
+                                color: Colors.grey,
+                                borderRadius: BorderRadius.circular(50)),
+                            child: Stack(children: [
+                              Align(
+                                alignment: Alignment.topLeft,
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.only(
+                                        topLeft: Radius.circular(50),
+                                        bottomRight: Radius.circular(50)),
+                                    color: Colors.grey[700],
+                                  ),
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.5,
+                                  height: 40,
+                                  child: Center(
+                                      child: Text(
+                                    'Edad',
+                                    style: TextStyle(color: Colors.white),
+                                  )),
+                                ),
+                              ),
+                              Align(
+                                alignment: Alignment.center,
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    SizedBox(
+                                      height: 15,
+                                    ),
+                                    Text(
+                                      userProvider.user.edad.toString(),
+                                      style: TextStyle(fontSize: 20),
+                                    ),
+                                  ],
+                                ),
+                              )
+                            ]),
                           ),
-                        ],
-                      ),
-                    )
-                  ]),
-                ),
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              //olvidaste contraseña?
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        //olvidaste contraseña?
 
-              SizedBox(
-                height: 25,
-              ),
-              //boton login
-              MyButton(
-                onTap: () {
-                  Navigator.pop(context);
-                },
-                text: 'Volver para atrás',
-                margin: 25,
-                padding: 25,
-              ),
-              SizedBox(
-                height: 50,
-              ),
-            ]),
+                        SizedBox(
+                          height: 25,
+                        ),
+                        //boton login
+                        MyButton(
+                          onTap: () {
+                            Navigator.pop(context);
+                          },
+                          text: 'Volver para atrás',
+                          margin: 25,
+                          padding: 25,
+                        ),
+                        SizedBox(
+                          height: 50,
+                        ),
+                      ]),
+                );
+              } else {
+                return SingleChildScrollView(
+                  child: Container(
+                    width: 500,
+                    height: 600,
+                    child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          SizedBox(
+                            height: 25,
+                          ),
+                          //logo
+                          CircleAvatar(
+                            radius: 50,
+                            backgroundColor: Colors.grey[700],
+                            child: Text(
+                              userProvider.user.nombre[0],
+                              style:
+                                  TextStyle(fontSize: 30, color: Colors.white),
+                            ),
+                          ),
+                          SizedBox(
+                            height: 25,
+                          ),
+                          //bienvenido, te hemos hechado de menos
+                          Text(
+                            'Tus datos',
+                            style: TextStyle(
+                                color: Colors.grey[700], fontSize: 16),
+                          ),
+                          SizedBox(
+                            height: 25,
+                          ),
+                          //textfield email
+                          Padding(
+                            padding: const EdgeInsets.all(10),
+                            child: Container(
+                              width: MediaQuery.of(context).size.width / 2,
+                              height: MediaQuery.of(context).size.height * .125,
+                              decoration: BoxDecoration(
+                                  color: Colors.grey,
+                                  borderRadius: BorderRadius.circular(50)),
+                              child: Stack(children: [
+                                Align(
+                                  alignment: Alignment.topLeft,
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.only(
+                                          topLeft: Radius.circular(50),
+                                          bottomRight: Radius.circular(50)),
+                                      color: Colors.grey[700],
+                                    ),
+                                    width:
+                                        MediaQuery.of(context).size.width / 6,
+                                    height: 40,
+                                    child: Center(
+                                        child: Text(
+                                      'Nombre y Apellidos',
+                                      style: TextStyle(color: Colors.white),
+                                    )),
+                                  ),
+                                ),
+                                Align(
+                                  alignment: Alignment.center,
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      SizedBox(
+                                        height: 15,
+                                      ),
+                                      Text(
+                                        '${userProvider.user.nombre} ${userProvider.user.apellido}',
+                                        style: TextStyle(fontSize: 20),
+                                      ),
+                                    ],
+                                  ),
+                                )
+                              ]),
+                            ),
+                          ),
+                          SizedBox(
+                            height: 25,
+                          ),
+                          //textfield contraseña
+                          Padding(
+                            padding: const EdgeInsets.all(10),
+                            child: Container(
+                              width: MediaQuery.of(context).size.width / 2,
+                              height: MediaQuery.of(context).size.height * .125,
+                              decoration: BoxDecoration(
+                                  color: Colors.grey,
+                                  borderRadius: BorderRadius.circular(50)),
+                              child: Stack(children: [
+                                Align(
+                                  alignment: Alignment.topLeft,
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                      borderRadius: const BorderRadius.only(
+                                          topLeft: Radius.circular(50),
+                                          bottomRight: Radius.circular(50)),
+                                      color: Colors.grey[700],
+                                    ),
+                                    width:
+                                        MediaQuery.of(context).size.width / 6,
+                                    height: 40,
+                                    child: const Center(
+                                        child: Text(
+                                      'Edad',
+                                      style: TextStyle(color: Colors.white),
+                                    )),
+                                  ),
+                                ),
+                                Align(
+                                  alignment: Alignment.center,
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      SizedBox(
+                                        height: 15,
+                                      ),
+                                      Text(
+                                        userProvider.user.edad.toString(),
+                                        style: TextStyle(fontSize: 20),
+                                      ),
+                                    ],
+                                  ),
+                                )
+                              ]),
+                            ),
+                          ),
+                          SizedBox(
+                            height: 10,
+                          ),
+                          //olvidaste contraseña?
+
+                          SizedBox(
+                            height: 25,
+                          ),
+                          //boton login
+                          MyButton(
+                            onTap: () {
+                              Navigator.pop(context);
+                            },
+                            text: 'Volver para atrás',
+                            margin: 15,
+                            padding: 15,
+                          ),
+                          SizedBox(
+                            height: 50,
+                          ),
+                        ]),
+                  ),
+                );
+              }
+            }),
           ),
         ),
       ),

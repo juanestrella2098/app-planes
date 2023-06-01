@@ -624,7 +624,7 @@ class pantallaOrdenador extends StatelessWidget {
     return Column(
       children: [
         SizedBox(
-          height: MediaQuery.of(context).size.height / 7,
+          height: MediaQuery.of(context).size.height / 10,
         ),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -1087,6 +1087,7 @@ class pantallaOrdenador extends StatelessWidget {
         ),
         GestureDetector(
           onTap: () async {
+            print(user.uid);
             await userProvider.usuarioRegistrado(user.uid)
                 ? {
                     await filtroProvider.traePlanes(context),

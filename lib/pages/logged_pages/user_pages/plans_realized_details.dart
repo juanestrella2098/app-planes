@@ -3,6 +3,7 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:plan_app/components/my_button_accept_cancel.dart';
 import 'package:plan_app/components/my_fluttertoast.dart';
 import 'package:plan_app/models/plan_model.dart';
+import 'package:plan_app/models/user_model.dart';
 import 'package:provider/provider.dart';
 
 import '../../../providers/user_provider.dart';
@@ -164,8 +165,9 @@ class PlanRealizedDetailPage extends StatelessWidget {
                                           onPressed: () {
                                             userProvider
                                                 .actualizaRatingUserPlan(
-                                                    planmodel.id,
-                                                    userProvider.votacion);
+                                              planmodel.id,
+                                              userProvider.votacion,
+                                            );
                                             myCustomFlutterToast(
                                                 "Se envío la votación, ¡gracias!",
                                                 Colors.green);

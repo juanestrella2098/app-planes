@@ -15,6 +15,7 @@ class PlanModelOnly {
   int rating;
   int costePlan;
   int contador;
+  int cantSumada;
   DateTime createdAt;
   DateTime updatedAt;
 
@@ -29,6 +30,7 @@ class PlanModelOnly {
     required this.rating,
     required this.costePlan,
     required this.contador,
+    required this.cantSumada,
     required this.createdAt,
     required this.updatedAt,
   });
@@ -49,6 +51,7 @@ class PlanModelOnly {
         rating: json["rating"],
         costePlan: json["costePlan"],
         contador: json["contador"],
+        cantSumada: json["cantSumada"],
         createdAt: DateTime.parse(json["createdAt"]),
         updatedAt: DateTime.parse(json["updatedAt"]),
       );
@@ -64,6 +67,7 @@ class PlanModelOnly {
         "rating": rating,
         "costePlan": costePlan,
         "contador": contador,
+        "cantSumada": cantSumada,
         "createdAt": createdAt.toIso8601String(),
         "updatedAt": updatedAt.toIso8601String(),
       };

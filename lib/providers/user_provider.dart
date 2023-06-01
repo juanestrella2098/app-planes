@@ -11,6 +11,17 @@ class UserProvider extends ChangeNotifier {
   List<PlanModel> planesFavs = [];
   List<PlanModel> planesRealizados = [];
   int votacion = 0;
+  int pos = 0;
+
+  int getPosicion() {
+    return pos;
+  }
+
+  void sumaPosicion(int num) {
+    pos = num;
+    notifyListeners();
+  }
+
   PlanModel plan = PlanModel(
       id: '',
       nombre: '',
@@ -107,20 +118,22 @@ class UserProvider extends ChangeNotifier {
     return planesFavs;
   }
 
-  agregaPlanARealizado(String id) {
-    user.viajesRealizados.add(id);
+  agregaPlanARealizado(String id) async {
+    user.viajesRealizados.add(Viaje(idMongo: id, cantidadVotada: 0));
     user.viajesFavoritos.removeWhere((idFav) => idFav == id);
     planesFavs.removeWhere((plan) => plan.id == id);
-    userService.putUsuario(user);
+    user = await userService.putUsuario(user);
     planService.getPlanUpdateItAndPlusOne(id);
     notifyListeners();
   }
 
   Future<List<PlanModel>> getPlanesRealizados() async {
     planesRealizados = await getPlanes();
-    planesRealizados = planesRealizados
-        .where((plan) => user.viajesRealizados.contains(plan.id))
-        .toList();
+    List<String?> idPlanes =
+        user.viajesRealizados.map((viaje) => viaje.idMongo).toList();
+
+    planesRealizados =
+        planesRealizados.where((plan) => idPlanes.contains(plan.id)).toList();
     notifyListeners();
     return planesRealizados;
   }
@@ -130,8 +143,14 @@ class UserProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  actualizaRatingUserPlan(String id, int rate) {
-    planService.getPlanAndUpdateRating(id, rate);
+  void actualizaRatingUserPlan(String id, int rate) {
+    Viaje viajeEncontrado =
+        user.viajesRealizados.firstWhere((element) => element.idMongo == id);
+    planService.getPlanAndUpdateRating(
+        id, rate, viajeEncontrado.cantidadVotada);
+    user.viajesRealizados[user.viajesRealizados.indexOf(viajeEncontrado)]
+        .cantidadVotada = rate;
+    actualizarUsuario(user.idFirebase, user.nombre, user.apellido, user.edad);
     notifyListeners();
   }
 
