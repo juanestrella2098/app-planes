@@ -119,7 +119,8 @@ class UserProvider extends ChangeNotifier {
   }
 
   agregaPlanARealizado(String id) async {
-    user.viajesRealizados.add(Viaje(idMongo: id, cantidadVotada: 0));
+    user.viajesRealizados
+        .add(Viaje(idMongo: id, cantidadVotada: 0, votado: false));
     user.viajesFavoritos.removeWhere((idFav) => idFav == id);
     planesFavs.removeWhere((plan) => plan.id == id);
     user = await userService.putUsuario(user);
@@ -146,10 +147,23 @@ class UserProvider extends ChangeNotifier {
   void actualizaRatingUserPlan(String id, int rate) {
     Viaje viajeEncontrado =
         user.viajesRealizados.firstWhere((element) => element.idMongo == id);
-    planService.getPlanAndUpdateRating(
-        id, rate, viajeEncontrado.cantidadVotada);
+    bool? votado = user
+        .viajesRealizados[user.viajesRealizados.indexOf(viajeEncontrado)]
+        .votado;
+    int cantVotadaAnterior = user
+        .viajesRealizados[user.viajesRealizados.indexOf(viajeEncontrado)]
+        .cantidadVotada;
+
     user.viajesRealizados[user.viajesRealizados.indexOf(viajeEncontrado)]
         .cantidadVotada = rate;
+
+    if (votado == false) {
+      user.viajesRealizados[user.viajesRealizados.indexOf(viajeEncontrado)]
+          .votado = true;
+    }
+
+    planService.getPlanAndUpdateRating(id, rate, cantVotadaAnterior, votado!);
+
     actualizarUsuario(user.idFirebase, user.nombre, user.apellido, user.edad);
     notifyListeners();
   }

@@ -16,11 +16,15 @@ class PlanSearchedPage extends StatelessWidget {
         decoration: BoxDecoration(
             color: Colors.grey, borderRadius: BorderRadius.circular(30)),
         child: Center(
-          child: Text(
-            (filtroProvider.planesAux.isEmpty)
-                ? 'No se han encontrado planes :('
-                : 'Se han encontrado ${filtroProvider.planesAux.length} plan/es',
-            style: TextStyle(color: Colors.white),
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Text(
+              (filtroProvider.planesAux.isEmpty)
+                  ? 'No se han encontrado planes :('
+                  : 'Se han encontrado ${filtroProvider.planesAux.length} plan/es, Desliza para arriba o para abajo para ver los planes',
+              style: TextStyle(color: Colors.white, fontSize: 18),
+              textAlign: TextAlign.center,
+            ),
           ),
         ),
       )
@@ -36,8 +40,11 @@ class PlanSearchedPage extends StatelessWidget {
     return Scaffold(
       body: Center(
           child: StackedCardCarousel(
-        initialOffset: 120,
+        type: StackedCardCarouselType.fadeOutStack,
+        spaceBetweenItems: 800,
+        initialOffset: 200,
         items: fancyCards,
+        pageController: PageController(initialPage: 0, keepPage: false),
       )),
       floatingActionButtonLocation: FloatingActionButtonLocation.startTop,
       floatingActionButton: Container(

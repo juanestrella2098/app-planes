@@ -1,13 +1,10 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
+import 'package:plan_app/components/my_fluttertoast.dart';
 import 'package:provider/provider.dart';
 
 import '../../../components/my_button.dart';
 import '../../../components/my_textfield.dart';
-import '../../../components/square_tile.dart';
 import '../../../providers/user_provider.dart';
-import '../../../services/auth_services.dart';
 
 class UpdateUserPage extends StatelessWidget {
   final nameController = TextEditingController();
@@ -83,16 +80,22 @@ class UpdateUserPage extends StatelessWidget {
                           ),
                           MyButton(
                             onTap: () {
-                              if (nameController.text == '') {
+                              if (nameController.text.isEmpty) {
                                 nameController.text = userProvider.user.nombre;
                               }
-                              if (surnameController.text == '') {
+                              if (surnameController.text.isEmpty) {
                                 surnameController.text =
                                     userProvider.user.apellido;
                               }
-                              if (edadController.text == '') {
+                              if (edadController.text.isEmpty) {
                                 edadController.text =
                                     userProvider.user.edad.toString();
+                              } else {
+                                if (num.tryParse(edadController.text) == null) {
+                                  myCustomFlutterToast(
+                                      "No has introducido un número",
+                                      Colors.red);
+                                }
                               }
                               userProvider.actualizarUsuario(
                                   userProvider.user.idFirebase,
@@ -196,16 +199,22 @@ class UpdateUserPage extends StatelessWidget {
                           ),
                           MyButton(
                             onTap: () {
-                              if (nameController.text == '') {
+                              if (nameController.text.isEmpty) {
                                 nameController.text = userProvider.user.nombre;
                               }
-                              if (surnameController.text == '') {
+                              if (surnameController.text.isEmpty) {
                                 surnameController.text =
                                     userProvider.user.apellido;
                               }
-                              if (edadController.text == '') {
+                              if (edadController.text.isEmpty) {
                                 edadController.text =
                                     userProvider.user.edad.toString();
+                              } else {
+                                if (num.tryParse(edadController.text) == null) {
+                                  myCustomFlutterToast(
+                                      "No has introducido un número",
+                                      Colors.red);
+                                }
                               }
                               userProvider.actualizarUsuario(
                                   userProvider.user.idFirebase,

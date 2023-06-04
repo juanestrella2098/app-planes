@@ -4,19 +4,26 @@ class Viaje {
   final String idMongo;
   int cantidadVotada;
   final String? id;
+  bool? votado;
 
-  Viaje({required this.idMongo, required this.cantidadVotada, this.id});
+  Viaje(
+      {this.votado,
+      required this.idMongo,
+      required this.cantidadVotada,
+      this.id});
 
   Map<String, dynamic> toMap() => {
         'id': idMongo,
         'cantVotada': cantidadVotada,
         '_id': id,
+        'votado': votado
       };
 
   factory Viaje.fromMap(Map<String, dynamic> map) => Viaje(
         idMongo: map['id'],
         cantidadVotada: map['cantVotada'],
         id: map['_id'],
+        votado: map['votado'],
       );
 
   String toJson() => json.encode(toMap());

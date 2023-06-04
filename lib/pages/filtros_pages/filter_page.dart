@@ -1,6 +1,7 @@
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:plan_app/components/my_fluttertoast.dart';
 import 'package:plan_app/pages/filtros_pages/plans_searched.dart';
 import 'package:plan_app/providers/filtro_providers.dart';
 import 'package:plan_app/utils/utils.dart';
@@ -565,11 +566,14 @@ class pantallaMovil extends StatelessWidget {
           onTap: () async {
             await userProvider.usuarioRegistrado(user.uid)
                 ? {
-                    await filtroProvider.traePlanes(context),
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => PlanSearchedPage()))
+                    filtroProvider
+                        .traePlanes(context)
+                        .then((_) => Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => PlanSearchedPage())))
+                        .catchError((_) => myCustomFlutterToast(
+                            "Ha ocurrido un error", Colors.red)),
                   } //Lanzar el alert de los datos
                 : //lanzar el alert de los datos
                 Navigator.push(context,
@@ -1090,11 +1094,14 @@ class pantallaOrdenador extends StatelessWidget {
             print(user.uid);
             await userProvider.usuarioRegistrado(user.uid)
                 ? {
-                    await filtroProvider.traePlanes(context),
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => PlanSearchedPage()))
+                    filtroProvider
+                        .traePlanes(context)
+                        .then((_) => Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => PlanSearchedPage())))
+                        .catchError((_) => myCustomFlutterToast(
+                            "Ha ocurrido un error", Colors.red))
                   } //Lanzar el alert de los datos
                 : //lanzar el alert de los datos
                 Navigator.push(context,

@@ -16,11 +16,15 @@ class FavsPage extends StatelessWidget {
         decoration: BoxDecoration(
             color: Colors.grey, borderRadius: BorderRadius.circular(30)),
         child: Center(
-            child: Text(
-          (userProvider.planesFavs.isEmpty)
-              ? 'Tus planes favoritos aparecerán aqui'
-              : 'Tienes ${userProvider.planesFavs.length} plan/es guardado/s',
-          style: TextStyle(color: Colors.white),
+            child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Text(
+            (userProvider.planesFavs.isEmpty)
+                ? 'Tus planes favoritos aparecerán aqui'
+                : 'Tienes ${userProvider.planesFavs.length} plan/es guardado/s, desliza para arriba o para abajo para ver tus planes favoritos',
+            style: TextStyle(color: Colors.white, fontSize: 18),
+            textAlign: TextAlign.center,
+          ),
         )),
       )
     ];
@@ -35,8 +39,11 @@ class FavsPage extends StatelessWidget {
     return Scaffold(
       body: Center(
           child: StackedCardCarousel(
-        initialOffset: 120,
+        type: StackedCardCarouselType.fadeOutStack,
+        spaceBetweenItems: 800,
+        initialOffset: 200,
         items: fancyCards,
+        pageController: PageController(initialPage: 0, keepPage: false),
       )),
     );
   }

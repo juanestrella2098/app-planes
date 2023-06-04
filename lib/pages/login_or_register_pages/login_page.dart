@@ -2,12 +2,10 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:plan_app/components/my_fluttertoast.dart';
 import 'package:plan_app/pages/login_or_register_pages/reset_password.dart';
-import 'package:provider/provider.dart';
 
 import '../../components/my_button.dart';
 import '../../components/my_textfield.dart';
 import '../../components/square_tile.dart';
-import '../../providers/user_provider.dart';
 import '../../services/auth_services.dart';
 
 class LoginPage extends StatefulWidget {
@@ -99,13 +97,15 @@ class _LoginPageState extends State<LoginPage> {
               child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Icon(
-                      Icons.lock,
-                      size: 50,
+                    Container(
+                      width: 300,
+                      height: 100,
+                      child: Image.asset(
+                        'lib/images/PlanApp-logos_transparent.png',
+                        fit: BoxFit.fitWidth,
+                      ),
                     ),
-                    SizedBox(
-                      height: 25,
-                    ),
+
                     //bienvenido, te hemos hechado de menos
                     Text(
                       'Bienvenido, ¡te hemos echado de menos!',
@@ -243,9 +243,13 @@ class _LoginPageState extends State<LoginPage> {
             height: 50,
           ),
           //logo
-          Icon(
-            Icons.lock,
-            size: 100,
+          Container(
+            width: 300,
+            height: 100,
+            child: Image.asset(
+              'lib/images/PlanApp-logos_transparent.png',
+              fit: BoxFit.fitWidth,
+            ),
           ),
           SizedBox(
             height: 50,

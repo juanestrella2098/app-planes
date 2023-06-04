@@ -130,12 +130,13 @@ class _RegisterPageState extends State<RegisterPage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(
-              Icons.lock,
-              size: 50,
-            ),
-            SizedBox(
-              height: 25,
+            Container(
+              width: 300,
+              height: 100,
+              child: Image.asset(
+                'lib/images/PlanApp-logos_transparent.png',
+                fit: BoxFit.fitWidth,
+              ),
             ),
 
             //bienvenido, te hemos hechado de menos
@@ -258,9 +259,13 @@ class _RegisterPageState extends State<RegisterPage> {
           height: 25,
         ),
         //logo
-        Icon(
-          Icons.lock,
-          size: 50,
+        Container(
+          width: 300,
+          height: 100,
+          child: Image.asset(
+            'lib/images/PlanApp-logos_transparent.png',
+            fit: BoxFit.fitWidth,
+          ),
         ),
         SizedBox(
           height: 25,
@@ -313,7 +318,7 @@ class _RegisterPageState extends State<RegisterPage> {
           padding: 15,
         ),
         SizedBox(
-          height: 50,
+          height: 60,
         ),
         Row(
           children: [
