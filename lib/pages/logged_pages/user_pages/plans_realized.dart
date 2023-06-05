@@ -19,7 +19,7 @@ class PlansRealizedPage extends StatelessWidget {
           (userProvider.planesRealizados.isEmpty)
               ? 'No se han encontrado planes :('
               : 'Se han encontrado ${userProvider.planesRealizados.length} plan/es',
-          style: TextStyle(color: Colors.white),
+          style: TextStyle(color: Colors.white, fontSize: 18),
         )),
       )
     ];
@@ -34,8 +34,11 @@ class PlansRealizedPage extends StatelessWidget {
     return Scaffold(
       body: Center(
           child: StackedCardCarousel(
-        initialOffset: 120,
+        type: StackedCardCarouselType.fadeOutStack,
+        spaceBetweenItems: 800,
+        initialOffset: 200,
         items: fancyCards,
+        pageController: PageController(initialPage: 0, keepPage: false),
       )),
       floatingActionButtonLocation: FloatingActionButtonLocation.startTop,
       floatingActionButton: Container(

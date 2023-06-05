@@ -16,16 +16,17 @@ class FavsPage extends StatelessWidget {
         decoration: BoxDecoration(
             color: Colors.grey, borderRadius: BorderRadius.circular(30)),
         child: Center(
-            child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Text(
-            (userProvider.planesFavs.isEmpty)
-                ? 'Tus planes favoritos aparecerán aqui'
-                : 'Tienes ${userProvider.planesFavs.length} plan/es guardado/s, desliza para arriba o para abajo para ver tus planes favoritos',
-            style: TextStyle(color: Colors.white, fontSize: 18),
-            textAlign: TextAlign.center,
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Text(
+              (userProvider.planesFavs.isEmpty)
+                  ? 'No has agregado ningún plan :('
+                  : 'Se han encontrado ${userProvider.planesFavs.length} plan/es, Desliza para arriba o para abajo para ver los planes',
+              style: TextStyle(color: Colors.white, fontSize: 18),
+              textAlign: TextAlign.center,
+            ),
           ),
-        )),
+        ),
       )
     ];
     userProvider.planesFavs.asMap().forEach((index, plan) {
@@ -43,7 +44,7 @@ class FavsPage extends StatelessWidget {
         spaceBetweenItems: 800,
         initialOffset: 200,
         items: fancyCards,
-        pageController: PageController(initialPage: 0, keepPage: false),
+        pageController: userProvider.pageControllerFavs,
       )),
     );
   }

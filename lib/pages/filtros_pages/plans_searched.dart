@@ -44,7 +44,8 @@ class PlanSearchedPage extends StatelessWidget {
         spaceBetweenItems: 800,
         initialOffset: 200,
         items: fancyCards,
-        pageController: PageController(initialPage: 0, keepPage: false),
+        pageController: filtroProvider.pageControllerFilter,
+        onPageChanged: (pageIndex) {},
       )),
       floatingActionButtonLocation: FloatingActionButtonLocation.startTop,
       floatingActionButton: Container(

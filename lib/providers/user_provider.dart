@@ -10,6 +10,8 @@ class UserProvider extends ChangeNotifier {
   UserService userService = UserService();
   List<PlanModel> planesFavs = [];
   List<PlanModel> planesRealizados = [];
+  PageController pageControllerFavs = PageController();
+
   int votacion = 0;
   int pos = 0;
 
@@ -93,6 +95,9 @@ class UserProvider extends ChangeNotifier {
     if (user.viajesFavoritos.contains(id)) {
       user.viajesFavoritos.removeWhere((element) => element == id);
       planesFavs.removeWhere((plan) => plan.id == id);
+      if (planesFavs.isEmpty) {
+        pageControllerFavs.jumpToPage(0);
+      }
     } else {
       user.viajesFavoritos.add(id);
     }

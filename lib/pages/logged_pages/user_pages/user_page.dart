@@ -5,6 +5,7 @@ import 'package:plan_app/components/my_button_profile.dart';
 import 'package:plan_app/pages/logged_pages/user_pages/plans_realized.dart';
 import 'package:plan_app/pages/logged_pages/user_pages/show_user.dart';
 import 'package:plan_app/pages/logged_pages/user_pages/update_user.dart';
+import 'package:plan_app/providers/filtro_providers.dart';
 import 'package:plan_app/providers/user_provider.dart';
 import 'package:provider/provider.dart';
 
@@ -34,6 +35,8 @@ class UserPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final userProvider = Provider.of<UserProvider>(context);
+    final filtroProvider = Provider.of<FiltroProviders>(context);
+
     return SafeArea(
       child: Center(child: SingleChildScrollView(
         child: LayoutBuilder(
@@ -122,6 +125,7 @@ class UserPage extends StatelessWidget {
                               TextButton(
                                   onPressed: () async {
                                     await userProvider.reseteaProvider();
+                                    filtroProvider.reseteaArrPlanes();
                                     await Future.delayed(Duration(seconds: 1));
                                     signUserOut();
                                     Navigator.pop(context);
@@ -160,6 +164,7 @@ class UserPage extends StatelessWidget {
                                   onPressed: () async {
                                     userProvider.eliminaUsuario(user.uid);
                                     userProvider.reseteaProvider();
+                                    filtroProvider.reseteaArrPlanes();
                                     deleteUser();
                                     await Future.delayed(Duration(seconds: 1));
                                     Navigator.pop(context);
@@ -265,6 +270,8 @@ class UserPage extends StatelessWidget {
                                     TextButton(
                                         onPressed: () async {
                                           await userProvider.reseteaProvider();
+                                          filtroProvider.reseteaArrPlanes();
+
                                           await Future.delayed(
                                               Duration(seconds: 1));
                                           signUserOut();
@@ -304,6 +311,8 @@ class UserPage extends StatelessWidget {
                                         onPressed: () async {
                                           userProvider.eliminaUsuario(user.uid);
                                           userProvider.reseteaProvider();
+                                          filtroProvider.reseteaArrPlanes();
+
                                           await Future.delayed(
                                               Duration(seconds: 1));
                                           deleteUser();
@@ -328,30 +337,5 @@ class UserPage extends StatelessWidget {
         }),
       )),
     );
-  }
-}
-
-class profile_photo extends StatelessWidget {
-  const profile_photo({
-    Key? key,
-    required this.user,
-  }) : super(key: key);
-
-  final User user;
-
-  @override
-  Widget build(BuildContext context) {
-    return ClipOval(
-        child: (user.photoURL != null)
-            ? Image.network(
-                user.photoURL!,
-                width: 100,
-                height: 100,
-              )
-            : Image.asset(
-                'lib/images/google.png',
-                width: 100,
-                height: 100,
-              ));
   }
 }

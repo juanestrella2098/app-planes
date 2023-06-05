@@ -130,6 +130,9 @@ class DetailFavPage extends StatelessWidget {
                             userProvider.borraPlanFavs(planmodel.id);
                             userProvider.agregaViajeFav(planmodel.id);
                             userProvider.agregaPlanARealizado(planmodel.id);
+                            if (userProvider.planesFavs.isEmpty) {
+                              userProvider.pageControllerFavs.jumpToPage(0);
+                            }
                             Navigator.pop(context);
                           },
                           child: Container(

@@ -135,6 +135,9 @@ class DetailPlansSearchedPage extends StatelessWidget {
                           onTap: () {
                             filtroProviders.borraPlanes(planmodel.id);
                             userProvider.agregaPlanARealizado(planmodel.id);
+                            if (filtroProviders.planesAux.isEmpty) {
+                              filtroProviders.pageControllerFilter.jumpTo(0);
+                            }
                             Navigator.pop(
                                 context,
                                 MaterialPageRoute(

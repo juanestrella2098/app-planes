@@ -10,6 +10,7 @@ class FiltroProviders extends ChangeNotifier {
   PlanService planService = PlanService();
   List<PlanModel> planes = [];
   List<PlanModel> planesAux = [];
+  PageController pageControllerFilter = PageController();
 
   String comunidadSeleccionada = '-';
   String provinciaSeleccionada = '-';
@@ -79,6 +80,12 @@ class FiltroProviders extends ChangeNotifier {
     tipoPlan = [];
     valorCoste = 0;
     numCoches = 0;
+    notifyListeners();
+  }
+
+  void reseteaArrPlanes() {
+    planes = [];
+    planesAux = [];
     notifyListeners();
   }
 
