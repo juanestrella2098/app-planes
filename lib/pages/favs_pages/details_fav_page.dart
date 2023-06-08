@@ -19,8 +19,7 @@ class DetailFavPage extends StatelessWidget {
             height: MediaQuery.of(context).size.height * .5,
             decoration: BoxDecoration(
                 image: DecorationImage(
-                    image: AssetImage('lib/images/penia_martos.jpg'),
-                    fit: BoxFit.cover)),
+                    image: NetworkImage(planmodel.foto), fit: BoxFit.cover)),
           ),
           Positioned(
             top: 45 + MediaQuery.of(context).padding.top,
@@ -88,10 +87,11 @@ class DetailFavPage extends StatelessWidget {
                                   ? Colors.red
                                   : null),
                             ),
-                            onTap: () {
+                            onTap: () async {
                               userProvider.agregaViajeFav(planmodel.id);
                               userProvider.estaEnFav(planmodel.id);
-                              print('actualizando');
+                              userProvider.pageControllerFavs.jumpToPage(0);
+                              Navigator.pop(context);
                             },
                           )
                         ],
@@ -130,9 +130,7 @@ class DetailFavPage extends StatelessWidget {
                             userProvider.borraPlanFavs(planmodel.id);
                             userProvider.agregaViajeFav(planmodel.id);
                             userProvider.agregaPlanARealizado(planmodel.id);
-                            if (userProvider.planesFavs.isEmpty) {
-                              userProvider.pageControllerFavs.jumpToPage(0);
-                            }
+                            userProvider.pageControllerFavs.jumpToPage(0);
                             Navigator.pop(context);
                           },
                           child: Container(

@@ -24,8 +24,7 @@ class DetailPlansSearchedPage extends StatelessWidget {
             height: MediaQuery.of(context).size.height * .5,
             decoration: BoxDecoration(
                 image: DecorationImage(
-                    image: AssetImage('lib/images/penia_martos.jpg'),
-                    fit: BoxFit.cover)),
+                    image: NetworkImage(planmodel.foto), fit: BoxFit.cover)),
           ),
           Positioned(
             top: 45 + MediaQuery.of(context).padding.top,
@@ -96,8 +95,6 @@ class DetailPlansSearchedPage extends StatelessWidget {
                             onTap: () {
                               userProvider.agregaViajeFav(planmodel.id);
                               userProvider.estaEnFav(planmodel.id);
-
-                              print('actualizando');
                             },
                           )
                         ],
@@ -127,7 +124,7 @@ class DetailPlansSearchedPage extends StatelessWidget {
                         ),
                         child: Text(
                             style: TextStyle(color: Colors.grey[700]),
-                            "${planmodel.desc}")),
+                            planmodel.desc)),
                     SizedBox(height: 50),
                     Expanded(
                       child: Center(
@@ -135,9 +132,7 @@ class DetailPlansSearchedPage extends StatelessWidget {
                           onTap: () {
                             filtroProviders.borraPlanes(planmodel.id);
                             userProvider.agregaPlanARealizado(planmodel.id);
-                            if (filtroProviders.planesAux.isEmpty) {
-                              filtroProviders.pageControllerFilter.jumpTo(0);
-                            }
+                            filtroProviders.pageControllerFilter.jumpTo(0);
                             Navigator.pop(
                                 context,
                                 MaterialPageRoute(

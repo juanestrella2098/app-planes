@@ -16,10 +16,10 @@ class FilterPage extends StatelessWidget {
   List<String> comunidades = comunidadesAutonomas.keys.toList();
   String comunidadSeleccionada = '-';
   String provinciaSeleccionada = '-';
-  String tipo1 = 'uno';
-  String tipo2 = 'dos';
-  String tipo3 = 'tres';
-  String tipo4 = 'cuatro';
+  String tipo1 = 'Solo';
+  String tipo2 = 'Pareja';
+  String tipo3 = 'Familiar';
+  String tipo4 = 'Mayores';
   @override
   Widget build(BuildContext context) {
     final filtroProvider = Provider.of<FiltroProviders>(context);
@@ -319,7 +319,7 @@ class pantallaMovil extends StatelessWidget {
                           width: 80,
                           child: Center(
                             child: Text(
-                              'Tipo 1',
+                              'Solo',
                               style: TextStyle(
                                   fontSize: 20,
                                   color: (filtroProvider.flagTipo1)
@@ -352,7 +352,7 @@ class pantallaMovil extends StatelessWidget {
                           width: 80,
                           child: Center(
                             child: Text(
-                              'Tipo 2',
+                              'Pareja',
                               style: TextStyle(
                                   fontSize: 20,
                                   color: (filtroProvider.flagTipo2)
@@ -385,7 +385,7 @@ class pantallaMovil extends StatelessWidget {
                           width: 80,
                           child: Center(
                             child: Text(
-                              'Tipo 3',
+                              'Familiar',
                               style: TextStyle(
                                   color: (filtroProvider.flagTipo3)
                                       ? Colors.white
@@ -418,7 +418,7 @@ class pantallaMovil extends StatelessWidget {
                           width: 80,
                           child: Center(
                             child: Text(
-                              'Tipo 4',
+                              'Mayores',
                               style: TextStyle(
                                   fontSize: 20,
                                   color: (filtroProvider.flagTipo4)
@@ -854,7 +854,7 @@ class pantallaOrdenador extends StatelessWidget {
                         width: 80,
                         child: Center(
                           child: Text(
-                            'Tipo 1',
+                            'Solo',
                             style: TextStyle(
                                 fontSize: 20,
                                 color: (filtroProvider.flagTipo1)
@@ -885,7 +885,7 @@ class pantallaOrdenador extends StatelessWidget {
                         width: 80,
                         child: Center(
                           child: Text(
-                            'Tipo 2',
+                            'Pareja',
                             style: TextStyle(
                                 fontSize: 20,
                                 color: (filtroProvider.flagTipo2)
@@ -916,7 +916,7 @@ class pantallaOrdenador extends StatelessWidget {
                         width: 80,
                         child: Center(
                           child: Text(
-                            'Tipo 3',
+                            'Familiar',
                             style: TextStyle(
                                 color: (filtroProvider.flagTipo3)
                                     ? Colors.white
@@ -947,7 +947,7 @@ class pantallaOrdenador extends StatelessWidget {
                         width: 80,
                         child: Center(
                           child: Text(
-                            'Tipo 4',
+                            'Mayores',
                             style: TextStyle(
                                 fontSize: 20,
                                 color: (filtroProvider.flagTipo4)
@@ -1091,7 +1091,6 @@ class pantallaOrdenador extends StatelessWidget {
         ),
         GestureDetector(
           onTap: () async {
-            print(user.uid);
             await userProvider.usuarioRegistrado(user.uid)
                 ? {
                     filtroProvider

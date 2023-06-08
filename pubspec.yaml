@@ -65,6 +65,8 @@ dev_dependencies:
 flutter_native_splash:
   color: "#FFFFFF"
   image: lib\images\PlanApp-logos_transparent.png
+  image_dark: lib\images\PlanApp-logos_white.png
+  color_dark: "#000000"
 
 flutter_icons:
   #  image_path: "assets/images/icon-128x128.png"

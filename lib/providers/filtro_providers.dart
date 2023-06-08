@@ -10,7 +10,7 @@ class FiltroProviders extends ChangeNotifier {
   PlanService planService = PlanService();
   List<PlanModel> planes = [];
   List<PlanModel> planesAux = [];
-  PageController pageControllerFilter = PageController();
+  PageController pageControllerFilter = PageController(keepPage: false);
 
   String comunidadSeleccionada = '-';
   String provinciaSeleccionada = '-';
@@ -55,7 +55,6 @@ class FiltroProviders extends ChangeNotifier {
     (tipoPlan.contains(_))
         ? tipoPlan.removeWhere((tipo) => tipo == _)
         : tipoPlan.add(_);
-    print(tipoPlan);
     notifyListeners();
   }
 

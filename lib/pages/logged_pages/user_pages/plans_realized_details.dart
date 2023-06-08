@@ -24,8 +24,7 @@ class PlanRealizedDetailPage extends StatelessWidget {
             height: MediaQuery.of(context).size.height * .5,
             decoration: BoxDecoration(
                 image: DecorationImage(
-                    image: AssetImage('lib/images/penia_martos.jpg'),
-                    fit: BoxFit.cover)),
+                    image: NetworkImage(planmodel.foto), fit: BoxFit.cover)),
           ),
           Positioned(
             top: 45 + MediaQuery.of(context).padding.top,

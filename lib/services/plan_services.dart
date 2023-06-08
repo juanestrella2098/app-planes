@@ -4,7 +4,7 @@ import 'package:plan_app/models/plan_model.dart';
 import 'package:plan_app/models/plan_model_only.dart';
 
 class PlanService {
-  final url = 'http://192.168.0.103:3000/api/plans';
+  final url = 'http://46.183.118.239:3000/api/plans';
 // deploy 46.183.118.239 dev:192.168.0.103
   Future<List<PlanModel>> getPlans() async {
     final uri = Uri.parse("$url");

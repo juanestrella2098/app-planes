@@ -31,7 +31,7 @@ class PlanSearchedPage extends StatelessWidget {
     ];
     filtroProvider.planesAux.asMap().forEach((index, plan) {
       fancyCards.add(MyCard(
-        image: 'lib/images/penia_martos.jpg',
+        image: filtroProvider.planesAux[index].foto,
         boxDecoration: BoxDecoration(),
         color: Colors.grey,
         posicion: index,
@@ -112,8 +112,10 @@ class MyCard extends StatelessWidget {
                     topLeft: Radius.circular(30),
                     topRight: Radius.circular(30)),
                 image: DecorationImage(
-                    image: AssetImage('lib/images/penia_martos.jpg'),
-                    fit: BoxFit.cover)),
+                    fit: BoxFit.cover,
+                    image:
+                        Image.network(filtroProvider.planesAux[posicion].foto)
+                            .image)),
           ),
           Align(
             alignment: Alignment.bottomCenter,

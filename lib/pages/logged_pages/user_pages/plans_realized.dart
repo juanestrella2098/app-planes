@@ -105,7 +105,8 @@ class MyCard extends StatelessWidget {
                     topLeft: Radius.circular(30),
                     topRight: Radius.circular(30)),
                 image: DecorationImage(
-                    image: AssetImage('lib/images/penia_martos.jpg'),
+                    image: NetworkImage(
+                        userProvider.planesRealizados[posicion].foto),
                     fit: BoxFit.cover)),
           ),
           Align(

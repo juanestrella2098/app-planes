@@ -5,7 +5,7 @@ import 'package:http/http.dart' as http;
 import '../models/user_model.dart';
 
 class UserService {
-  final url = 'http://192.168.0.103:3000/api/users';
+  final url = 'http://46.183.118.239:3000/api/users';
 
   Future<UserModel> getUsuario(String id) async {
     final uri = Uri.parse("$url/$id");
@@ -29,7 +29,6 @@ class UserService {
 
   Future<UserModel> postUsuario(UserModel userModel) async {
     final uri = Uri.parse("$url");
-    print(jsonEncode(userModel.toJson()));
     final http.Response response = await http.post(uri,
         body: userModel.toJson(),
         headers: {"Content-Type": "application/json"});
@@ -38,8 +37,6 @@ class UserService {
 
   Future<UserModel> putUsuario(UserModel userModel) async {
     final uri = Uri.parse("$url/${userModel.idFirebase}");
-    print(userModel.toJson());
-    print(jsonEncode(userModel.toJson()));
     final http.Response response = await http.put(uri,
         body: userModel.toJson(),
         headers: {"Content-Type": "application/json"});
