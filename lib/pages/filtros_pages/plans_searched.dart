@@ -87,23 +87,6 @@ class MyCard extends StatelessWidget {
         decoration: BoxDecoration(
             color: color, borderRadius: BorderRadius.circular(30)),
         child: Stack(children: [
-          Positioned(
-            top: 45 + MediaQuery.of(context).padding.top,
-            left: 30,
-            child: ClipOval(
-              child: Container(
-                height: 42,
-                width: 41,
-                decoration: BoxDecoration(color: Colors.white, boxShadow: [
-                  BoxShadow(
-                      color: Colors.black.withOpacity(.25),
-                      offset: Offset(0, 4),
-                      blurRadius: 8)
-                ]),
-                child: Center(child: Icon(Icons.arrow_back)),
-              ),
-            ),
-          ),
           Container(
             height: 250,
             width: double.infinity,
