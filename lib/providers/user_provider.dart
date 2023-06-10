@@ -129,7 +129,7 @@ class UserProvider extends ChangeNotifier {
     user.viajesFavoritos.removeWhere((idFav) => idFav == id);
     planesFavs.removeWhere((plan) => plan.id == id);
     user = await userService.putUsuario(user);
-    planService.getPlanUpdateItAndPlusOne(id);
+    planService.updatePlan(id);
     notifyListeners();
   }
 

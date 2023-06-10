@@ -5,7 +5,7 @@ import 'package:http/http.dart' as http;
 import '../models/user_model.dart';
 
 class UserService {
-  final url = 'http://46.183.118.239:3000/api/users';
+  final url = 'https://api.plansapi.online/api/users';
 
   Future<UserModel> getUsuario(String id) async {
     final uri = Uri.parse("$url/$id");

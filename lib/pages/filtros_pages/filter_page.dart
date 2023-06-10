@@ -1,5 +1,6 @@
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:plan_app/components/my_fluttertoast.dart';
 import 'package:plan_app/pages/filtros_pages/plans_searched.dart';
@@ -595,6 +596,9 @@ class pantallaMovil extends StatelessWidget {
               ),
             ),
           ),
+        ),
+        Container(
+          height: (kIsWeb) ? 50 : 0,
         )
       ],
     );
