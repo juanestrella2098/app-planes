@@ -92,8 +92,10 @@ class DetailPlansSearchedPage extends StatelessWidget {
                                   ? Colors.red
                                   : null),
                             ),
-                            onTap: () {
-                              userProvider.agregaViajeFav(planmodel.id);
+                            onTap: () async {
+                              await userProvider
+                                  .agregaViajeFav(planmodel.id)
+                                  .then(((_) => print('hecho')));
                               userProvider.estaEnFav(planmodel.id);
                             },
                           )

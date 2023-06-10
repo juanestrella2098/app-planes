@@ -95,9 +95,9 @@ class UserProvider extends ChangeNotifier {
     if (user.viajesFavoritos.contains(id)) {
       user.viajesFavoritos.removeWhere((element) => element == id);
       planesFavs.removeWhere((plan) => plan.id == id);
-      if (planesFavs.isEmpty) {
-        pageControllerFavs.jumpToPage(0);
-      }
+      //if (planesFavs.isEmpty) {
+      //  pageControllerFavs.jumpToPage(0);
+      //}
     } else {
       user.viajesFavoritos.add(id);
     }
@@ -106,7 +106,11 @@ class UserProvider extends ChangeNotifier {
   }
 
   bool estaEnFav(String id) {
-    return user.viajesFavoritos.contains(id);
+    if (user.viajesFavoritos.contains(id)) {
+      return true;
+    } else {
+      return false;
+    }
   }
 
   Future<List<PlanModel>> getPlanes() {
